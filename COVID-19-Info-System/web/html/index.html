@@ -2,15 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>COVID-19疫情信息系统</title>
+
+    <!--import bootstrap4-->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!--import customize script-->
+    <script type="text/javascript" src="js/IViewer.js"></script>
+    <script type="text/javascript" src="js/MenuControl.js"></script>
+    <script type="text/javascript" src="js/BasicEpControl.js"></script>
+    <link rel="stylesheet" href="css/BasicEp.css">
+    <link rel="stylesheet" href="css/Menu.css">
 </head>
 <body>
     <div id="menubar">
         <div id="logoTitle"></div>
-        <div id="basisEpMenu"></div>
-        <div id="epAnalysisMenu"></div>
+        <div id="menuBtnGroup">
+            <div id="basicEpMenuDiv"></div>
+            <div id="epAnalysisMenuDiv"></div>
+        </div>
+        <div id="shareIcon"></div>
     </div>
     <div id="title"></div>
     <div id="caseList"></div>
+
 </body>
 </html>
