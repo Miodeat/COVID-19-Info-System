@@ -1,5 +1,12 @@
+.my-menu, .my-item, .my-dp-menu {
+    background-color: black;
+}
+
 .my-menu {
     float: left;
-    margin: 0 7%;
-    background-color: black;
+    margin: 0 5%;
+}
+
+.my-item {
+    color: white;
 }

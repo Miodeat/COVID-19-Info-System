@@ -47,10 +47,10 @@ MenuControl.prototype._addDropDownMenuItem = function (target, items) {
     let me = this;
 
     let itemsContainer = $("<div>").appendTo(target)
-                            .addClass("dropdown-menu");
+                            .addClass("dropdown-menu my-dp-menu");
     for (let i = 0; i < items.length; i++) {
         $("<a>").appendTo(itemsContainer)
-            .addClass("dropdown-item")
+            .addClass("dropdown-item my-item")
             .attr({
                 "id": items[i].id,
                 "href": items[i].href
