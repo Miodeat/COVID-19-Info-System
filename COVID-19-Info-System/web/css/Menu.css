@@ -1,4 +1,4 @@
-.my-menu, .my-item, .my-dp-menu {
+.my-menu, .my-dp-menu {
     background-color: black;
 }
 
@@ -7,6 +7,16 @@
     margin: 0 5%;
 }
 
-.my-item {
+.my-item, .btn-black {
     color: white;
+    background-color: black;
+    border-color: black;
+}
+
+.btn-black:hover, btn-black:focus, .btn-black:active,
+.open .dropdown-toggle.btn-black,
+.my-item:hover, .my-item:focus, .my-item:active {
+    color: white;
+    background-color: #363636;
+    border-color: black;
 }

@@ -18,7 +18,7 @@ MenuControl.prototype.addDropDownMenu = function (div, menuID, menuTxt, items) {
 
     let menu = $("#" + div).addClass("dropdown my-menu");
     $("<button>").appendTo(menu)
-        .addClass("btn btn-dark dropdown-toggle")
+        .addClass("btn btn-black dropdown-toggle")
         .attr({
             "data-toggle": "dropdown",
             "id": menuID,
@@ -71,7 +71,7 @@ MenuControl.prototype.addBtnMenu = function(div, menuID, menuTxt, href){
 
     let container = $("#" + div).addClass("my-menu");
     return $("<a>").appendTo(container)
-        .addClass("btn btn-dark ")
+        .addClass("btn btn-black")
         .attr({
             "id": menuID,
             "role": "button",
