@@ -11,28 +11,59 @@
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <!--import customize script-->
-    <script type="text/javascript" src="js/IViewer.js"></script>
+    <!--import customize menubar-->
     <script type="text/javascript" src="js/MenuControl.js"></script>
+    <link rel="stylesheet" href="css/Menu.css">
+
+    <!--import ztree-->
+    <script src="support/ztree/js/jquery.ztree.all.js"></script>
+    <link rel="stylesheet" href="support/ztree/css/metroStyle/metroStyle.css">
+
+    <!--import customize tree controller-->
+    <script src="js/ITreeControl.js"></script>
+    <script src="js/TreeControl.js"></script>
+
+
+    <!--import top5 list controller-->
+    <script src="js/DataListControl.js"></script>
+    <link rel="stylesheet" href="css/DataList.css">
+
+    <!--import customize viewer-->
+    <script type="text/javascript" src="js/IViewer.js"></script>
+
+
+
+    <!--import basic epidemic page-->
     <script type="text/javascript" src="js/BasicEpControl.js"></script>
     <link rel="stylesheet" href="css/BasicEp.css">
-    <link rel="stylesheet" href="css/Menu.css">
+
+
 </head>
 <body>
 <div class="container-fluid">
-    <div id="menubar">
-        <div id="logoTitle"></div>
-        <div id="menuBtnGroup">
+    <div id="menubar" class="row">
+        <div id="logoTitle" class="col-xl-4 col-lg-4 col-md-4"></div>
+        <div id="menuBtnGroup" class="col-xl-8 col-lg-8 col-md-8">
             <div id="basicEpMenuDiv"></div>
             <div id="epAnalysisMenuDiv"></div>
             <div id="shareIcon"></div>
         </div>
     </div>
 
-    <div id="title"></div>
-    <div id="dataExhibition">
-        <div id="listTitle"></div>
-        <div id="caseList"></div>
+    <div id="title" class="row"></div>
+    <div id="dataExhibition" class="row">
+        <div class="col-xl-2 col-lg-2 col-md-2">
+            <div id="dataTreeList">
+                <div id="listTitle"></div>
+                <div id="caseList"></div>
+                <div id="listUpdateTime"></div>
+            </div>
+            <div id="dataTreeListSeparator" class="vertical-separator"></div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6">
+            <div></div>
+        </div>
+
     </div>
 </div>
 

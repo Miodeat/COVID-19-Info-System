@@ -1,0 +1,50 @@
+#dataTreeList {
+    color: white;
+    float: left;
+    padding-left: 4%;
+    width: 80%;
+}
+
+#dataTreeListSeparator {
+    float: right;
+    margin-right: 2%;
+}
+
+.scroll-container {
+    overflow: auto;
+}
+
+#listTitle, .tree-container, .update-time-container{
+    width: 100%;
+}
+
+.tree-container {
+    background-color: white;
+    height: 200px;
+}
+
+.update-time-container {
+    height: 60px;
+}
+
+.update-time-label-container, .time-area {
+    float: left;
+    background-color: #D7D7D7;
+    color: black;
+    width: 50%;
+    height: 100%;
+}
+
+.update-time-label-container {
+    padding-left: 6%;
+}
+
+.time-area {
+    padding-top: 3%;
+}
+
+.vertical-separator {
+    background-color: #666666;
+    width: 1px;
+    height: 98%;
+}

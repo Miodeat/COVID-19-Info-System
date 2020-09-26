@@ -10,24 +10,59 @@ $(document).ready(function () {
     };
     let analysisItemsArr = [CRMenuItemObj]; // the array of analysis menu items
 
+    // params to initialize basic epidemic page
     let ops = {
         "menubarDiv": "menubar",
         "logoDiv": "logoTitle",
         "menuGroupID": "menuBtnGroup",
         "btnMenuObj": {
             "div": "basicEpMenuDiv",
-            "menuID": "basisEpMenu",
+            "menuId": "basisEpMenu",
             "menuTxt": "BASIC EPIDEMIC EXHIBITION",
             "href": "index.html"
         },
         "dpMenuObj": {
             "div": "epAnalysisMenuDiv",
-            "menuID": "epAnalysisMenu",
+            "menuId": "epAnalysisMenu",
             "menuTxt": "EPIDEMIC ANALYSIS EXHIBITION",
             "items": analysisItemsArr
         },
         "shareIconDiv": "shareIcon",
-        "titleDiv": "title"
+        "titleDiv": "title",
+        "dataTreeListObj": {
+            "container": "dataTreeList",
+            "treeTitleDiv": "listTitle",
+            "treeTitleId": "treeTitle",
+            "treeTitleTxt": "Global Cases",
+            "treeTargetDiv": "caseList",
+            "treeData": [
+                {
+                    "name": "test",
+                    "children": [
+                        {
+                            "name": "c1"
+                        },
+                        {
+                            "name": "c2"
+                        }
+                    ]
+                },
+                {
+                    "name": "test2",
+                    "children": [
+                        {
+                            "name": "c3",
+                        },
+                        {
+                            "name": "c4"
+                        }
+                    ]
+                }
+            ],
+            "updateTimeDiv": "listUpdateTime",
+            "date": "9/26/2020",
+            "time": "14:55"
+        }
     };
     let basicEp = new BasicEpControl(ops); // initialize page
 });
@@ -39,10 +74,14 @@ $(document).ready(function () {
 //                 menubarDiv: the id of div which contains menubar
 //                 logoDiv: the id of div which contains logo
 //                 menuGroupID: the id of div which contains menus
-//                 btnMenuObj: a json object contains param to create a button menu
-//                 dpMenuObj: a json object contains param to create a dropdown menu
+//                 btnMenuObj: a json object contains param to create a button menu,
+//                             more information from MenuControl.js
+//                 dpMenuObj: a json object contains param to create a dropdown menu,
+//                            more information from MenuControl.js
 //                 shareIconDiv: the id of div which contains share icon
 //                 titleDiv: the id of div which contains the title
+//                 dataTreeListObj: a json object contains param to create data tree list
+//                                  more information from DataListControl.js
 BasicEpControl = function (ops) {
     let me = this;
 
@@ -58,10 +97,10 @@ BasicEpControl = function (ops) {
 BasicEpControl.prototype._init = function () {
     let me = this;
 
-    let menubar = $("#" + me.options.menubarDiv).addClass("row");
+    let menubar = $("#" + me.options.menubarDiv);
     // load logo
     let logoDiv = $("#" + me.options.logoDiv)
-        .addClass("logoDiv col-xl-4 col-lg-4 col-md-4");
+        .addClass("logoDiv");
     $("<div>").appendTo(logoDiv)
         .addClass("CSU-logo")
         .css("background-image", "url(html/icon/中南大学校徽-黑白.jpg)");
@@ -70,7 +109,6 @@ BasicEpControl.prototype._init = function () {
         .css("background-image", "url(html/icon/中南大学-白英文标.png)");
 
     // create menus
-    $("#" + me.options.menuGroupID).addClass("col-xl-8 col-lg-8 col-md-8");
     me._initMenu();
     // load sharing icon
     let shareIcon = $("#" + me.options.shareIconDiv);
@@ -83,12 +121,11 @@ BasicEpControl.prototype._init = function () {
         });
 
     // create title
-    let titleDiv = $("#" + me.options.titleDiv)
-        .addClass("row");
+    let titleDiv = $("#" + me.options.titleDiv);
     $("<h1>").appendTo(titleDiv)
         .text("COVID19 BASIC EPIDEMIC DASHBOARD");
 
-
+    let dataListControl = new DataListControl(me.options.dataTreeListObj);
 };
 
 // create a button menu and a dropdown menu
@@ -100,11 +137,11 @@ BasicEpControl.prototype._initMenu = function () {
     let menuControl = new MenuControl();
 
     let btnObj = me.options.btnMenuObj;
-    let basicEpMenu = menuControl.addBtnMenu(btnObj.div, btnObj.menuID,
+    let basicEpMenu = menuControl.addBtnMenu(btnObj.div, btnObj.menuId,
         btnObj.menuTxt, btnObj.href);
 
     let dpObj = me.options.dpMenuObj;
-    let analysisMenu = menuControl.addDropDownMenu(dpObj.div, dpObj.menuID,
+    let analysisMenu = menuControl.addDropDownMenu(dpObj.div, dpObj.menuId,
         dpObj.menuTxt, dpObj.items);
 
 };

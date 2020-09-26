@@ -1,6 +1,12 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.09.26
+
+### modified by Miodeat
+
+1. 完成了全球案例的树状展示，包括标题、树状列表、更新时间提示和分割线；
+
 ## 2020.09.25
 
 ### modified by Miodeat
