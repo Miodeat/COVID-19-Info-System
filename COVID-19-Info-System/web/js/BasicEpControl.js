@@ -82,7 +82,21 @@ $(document).ready(function () {
             }
         ]
     };
-    let basicEp = new BasicEpControl(ops); // initialize page
+    $.ajax({
+        "type": "POST",
+        "url": "/COVID_19_Info_System/getEpidemicInfoServlet",
+        "data": {},
+        "success": function (res) {
+            let json = JSON.parse(res);
+            let countryEpObj = json.total.everyCountryTotal;
+            ops.dataTreeListObj.treeData = me._formatTreeData(countryEpObj);
+            let basicEp = new BasicEpControl(ops); // initialize page
+        },
+        "err": function (err) {
+            console.log(err)
+        }
+    });
+
 });
 
 // the constructor of controller of basic epidemic page
@@ -176,4 +190,36 @@ BasicEpControl.prototype._initDisplayBoard = function () {
             me.options.boardObjArr[i].text,
             me.options.boardObjArr[i].href)
     }
+};
+
+BasicEpControl.prototype._formatTreeData = function (countryEpObj) {
+    let treeData = [];
+    for (let key in countryEpObj) {
+        let node = {};
+        let epObj = countryEpObj[key];
+        let confirmed = epObj["confirmed"];
+        let death = epObj["death"];
+        let recovered = epObj["recovered"];
+        let current = confirmed - death - recovered;
+        node["current"] = current;
+        node["name"] = key + "  " + current;
+        node["children"] = [];
+        node["children"].push({
+            "name": "Deaths  " + death
+        });
+        node["children"].push({
+            "name": "Recovered  " + recovered
+        });
+        node["children"].push({
+            "name": "Total  " + confirmed
+        });
+
+        treeData.push(node);
+    }
+
+    treeData.sort(function (a, b) {
+        return a.current - b.current;
+    });
+
+    return treeData;
 };
