@@ -12,6 +12,10 @@ import java.util.logging.Logger;
 
 
 public class UtilDao {
+    private static String driver = "org.postgresql.Driver";
+    private static String url = "jdbc:postgresql://47.96.158.130/";
+    private static String user = "postgres";
+    private static String password = "pj19980806";
 
     /*
         get database connection
@@ -20,16 +24,16 @@ public class UtilDao {
     public static Connection getConnection(String dbInfoPath,String dbName) throws Exception{
         try{
 
-            JSONObject data = readDbInfo(dbInfoPath);
-            String driver = data.getString("driver");
-            String user = data.getString("user");
-            String password = data.getString("password");
-            String url = data.getString("basicdbUrl")+dbName;
+//            JSONObject data = readDbInfo(dbInfoPath);
+//            String driver = data.getString("driver");
+//            String user = data.getString("user");
+//            String password = data.getString("password");
+//            String url = data.getString("basicdbUrl")+dbName;
             Class.forName(driver);
             Properties props = new Properties();
             props.setProperty("user",user);
             props.setProperty("password",password);
-            return DriverManager.getConnection(url,props);
+            return DriverManager.getConnection(url+dbName,props);
         }catch (Exception e){
             Logger.getLogger(e.getMessage());
             throw e;
@@ -43,6 +47,7 @@ public class UtilDao {
     private static JSONObject readDbInfo(String dbInfoPath) throws IOException{
         StringBuffer stringBuffer = new StringBuffer();
         File myFile = new File(dbInfoPath);
+
         if(!myFile.exists()){
             System.err.println("Can't not find "+dbInfoPath);
         }

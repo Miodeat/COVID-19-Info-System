@@ -27,8 +27,8 @@ public class getEpidemicInfoServlet extends HttpServlet {
         JSONObject res = new JSONObject();
         String sql = "select * from epidemic_data where update_time =(select MAX(update_time) from epidemic_data) order by country";
         String dbName = "basicdb";
-        res.put("total",epidemic_Service.getEpidemicInfoService(sql,dbName));
-        res = getCountryTotal(res);
+        res = epidemic_Service.getEpidemicInfoService(sql,dbName);
+        res.put("total",getCountryTotal(res));
         out.write(res.toString());
     }
 
@@ -38,6 +38,7 @@ public class getEpidemicInfoServlet extends HttpServlet {
     }
 
     JSONObject getCountryTotal(JSONObject data){
+        System.out.println(data);
         JSONObject res = new JSONObject();
         JSONObject res2 = new JSONObject();
         JSONObject res3 = new JSONObject();
