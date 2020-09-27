@@ -1,7 +1,15 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.09.26 11:30
+
+### modified by Miodeat
+
+1. 预留了地图与统计图展示div
+2. 完成了展示板及其布局
+
 ## 2020.09.26
+
 ### modified by Daisy
 1. 移动lib文件夹至WEB-INF下面。必须要这样做，不然后端引用包会出错。
 
@@ -9,13 +17,6 @@
 ### modified by Daisy
 1. 完成后端数据库连接关闭
 2. 完成数据库查询接口设计。现在可以获取疫情数据了。
-## 2020.09.26
-
-### modified by Miodeat
-
-1. 预留了地图与统计图展示div
-2. 完成了展示板及其布局
-
 ## 2020.09.26
 
 ### modified by Miodeat
