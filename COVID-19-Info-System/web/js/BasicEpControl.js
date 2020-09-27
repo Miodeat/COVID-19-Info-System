@@ -62,7 +62,25 @@ $(document).ready(function () {
             "updateTimeDiv": "listUpdateTime",
             "date": "9/26/2020",
             "time": "14:55"
-        }
+        },
+        "boardContainer": "displayBoards",
+        "boardObjArr": [
+            {
+                "title": "test1",
+                "text": "test text 1",
+                "href": "#"
+            },
+            {
+                "title": "test2",
+                "text": "test text 2",
+                "href": "#"
+            },
+            {
+                "title": "test3",
+                "text": "test text 3",
+                "href": "#"
+            }
+        ]
     };
     let basicEp = new BasicEpControl(ops); // initialize page
 });
@@ -126,6 +144,7 @@ BasicEpControl.prototype._init = function () {
         .text("COVID19 BASIC EPIDEMIC DASHBOARD");
 
     let dataListControl = new DataListControl(me.options.dataTreeListObj);
+    me._initDisplayBoard();
 };
 
 // create a button menu and a dropdown menu
@@ -144,4 +163,17 @@ BasicEpControl.prototype._initMenu = function () {
     let analysisMenu = menuControl.addDropDownMenu(dpObj.div, dpObj.menuId,
         dpObj.menuTxt, dpObj.items);
 
+};
+
+BasicEpControl.prototype._initDisplayBoard = function () {
+    let me = this;
+
+    let boardControl = new DisplayBoardControl();
+
+    for (let i = 0; i < 3; i++) {
+        boardControl.addDisplayBoard(me.options.boardContainer,
+            me.options.boardObjArr[i].title,
+            me.options.boardObjArr[i].text,
+            me.options.boardObjArr[i].href)
+    }
 };
