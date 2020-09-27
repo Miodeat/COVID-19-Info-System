@@ -1,0 +1,36 @@
+#menubar, #shareIcon, .CSU-name, #menuBtnGroup {
+    background-color: black;
+}
+
+#menubar, #logoTitle {
+    height: 45px;
+}
+
+#logoTitle {
+    overflow: hidden;
+}
+
+.CSU-logo, .CSU-name {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    float: left;
+}
+
+.CSU-logo {
+    margin-left: 8%;
+    width: 9.5%;
+    padding-bottom: 9.5%;
+}
+
+.CSU-name {
+    margin-top: 1%;
+    margin-left: 3%;
+    width: 68%;
+    padding-bottom: 9%;
+}
+
+.bar-right-icon {
+    float: right;
+    margin-top: 10px;
+    margin-right: 5%;
+}

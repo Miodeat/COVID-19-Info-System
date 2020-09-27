@@ -21,7 +21,7 @@
 
     <!--import customize tree controller-->
     <script src="js/ITreeControl.js"></script>
-    <script src="js/TreeControl.js"></script>
+    <script src="js/ZTreeControl.js"></script>
 
 
     <!--import top5 list controller-->
@@ -35,11 +35,15 @@
 
     <!--import basic epidemic page-->
     <script type="text/javascript" src="js/BasicEpControl.js"></script>
+    <link rel="stylesheet" href="css/Menubar.css">
     <link rel="stylesheet" href="css/BasicEp.css">
+    <link rel="stylesheet" href="css/DataExhibition.css">
+    <script src="js/DisplayBoardControl.js"></script>
+    <link rel="stylesheet" href="css/DisplayBoard.css">
 
 
 </head>
-<body>
+<body style="background-color: #363636">
 <div class="container-fluid">
     <div id="menubar" class="row">
         <div id="logoTitle" class="col-xl-4 col-lg-4 col-md-4"></div>
@@ -63,8 +67,16 @@
         <div class="col-xl-6 col-lg-6 col-md-6">
             <div></div>
         </div>
-
+        <div class="col-xl-4 col-lg-4 col-md-4">
+            <div></div>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div id="exhAndInfoSeparator" class="horizontal-separator"></div>
+        </div>
+    </div>
+    <div id="displayBoards" class="row"></div>
 </div>
 
 </body>

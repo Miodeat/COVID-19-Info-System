@@ -3,6 +3,7 @@
     float: left;
     padding-left: 4%;
     width: 80%;
+    height: 430px
 }
 
 #dataTreeListSeparator {
@@ -10,21 +11,25 @@
     margin-right: 2%;
 }
 
-.scroll-container {
-    overflow: auto;
+#listTitle {
+    height: 8%;
 }
 
 #listTitle, .tree-container, .update-time-container{
     width: 100%;
 }
 
+.scroll-container {
+    overflow: auto;
+}
+
 .tree-container {
     background-color: white;
-    height: 200px;
+    height: 77%;
 }
 
 .update-time-container {
-    height: 60px;
+    height: 15%;
 }
 
 .update-time-label-container, .time-area {
@@ -40,11 +45,5 @@
 }
 
 .time-area {
-    padding-top: 3%;
-}
-
-.vertical-separator {
-    background-color: #666666;
-    width: 1px;
-    height: 98%;
+    padding-top: 4%;
 }
