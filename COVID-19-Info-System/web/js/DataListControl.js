@@ -13,8 +13,6 @@ DataListControl.prototype._init = function () {
     me._createTitle(me.options.treeTitleDiv, me.options.treeTitleId,
         me.options.treeTitleTxt);
 
-    me._createList(me.options.treeTargetDiv, me.options.treeData);
-
     me._createUpdateTime(me.options.updateTimeDiv, me.options.date,
         me.options.time);
 };
@@ -30,7 +28,7 @@ DataListControl.prototype._createTitle = function (div, id, text) {
         .text(text);
 };
 
-DataListControl.prototype._createList = function (div, data) {
+DataListControl.prototype.createList = function (div, data) {
     let me = this;
 
     $("#" + div)

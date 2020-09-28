@@ -11,6 +11,10 @@
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+    <!-- 引入 echarts.js -->
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/world.js"></script>
+
     <!--import customize menubar-->
     <script type="text/javascript" src="js/MenuControl.js"></script>
     <link rel="stylesheet" href="css/Menu.css">
@@ -40,9 +44,8 @@
     <link rel="stylesheet" href="css/DataExhibition.css">
     <script src="js/DisplayBoardControl.js"></script>
     <link rel="stylesheet" href="css/DisplayBoard.css">
-
-    <!--import kepler.gl-->
-    <script src="https://unpkg.com/kepler.gl/umd/keplergl.min.js" />
+    <script src="js/EChartViewer.js"></script>
+    <script src="js/MapsTabControl.js"></script>
 
 
 </head>
@@ -67,11 +70,11 @@
             </div>
             <div id="dataTreeListSeparator" class="vertical-separator"></div>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-6">
-            <div></div>
+        <div class="col-xl-7 col-lg-7 col-md-7">
+            <div id="mapTabs"></div>
         </div>
-        <div class="col-xl-4 col-lg-4 col-md-4">
-            <div></div>
+        <div class="col-xl-3 col-lg-3 col-md-3">
+            <div id="countryCases"></div>
         </div>
     </div>
     <div class="row">

@@ -35,30 +35,7 @@ $(document).ready(function () {
             "treeTitleId": "treeTitle",
             "treeTitleTxt": "Global Cases",
             "treeTargetDiv": "caseList",
-            "treeData": [
-                {
-                    "name": "test",
-                    "children": [
-                        {
-                            "name": "c1"
-                        },
-                        {
-                            "name": "c2"
-                        }
-                    ]
-                },
-                {
-                    "name": "test2",
-                    "children": [
-                        {
-                            "name": "c3",
-                        },
-                        {
-                            "name": "c4"
-                        }
-                    ]
-                }
-            ],
+            "treeData": [],
             "updateTimeDiv": "listUpdateTime",
             "date": "9/26/2020",
             "time": "14:55"
@@ -80,23 +57,36 @@ $(document).ready(function () {
                 "text": "test text 3",
                 "href": "#"
             }
-        ]
-    };
-    $.ajax({
-        "type": "POST",
-        "url": "/COVID_19_Info_System/getEpidemicInfoServlet",
-        "data": {},
-        "success": function (res) {
-            let json = JSON.parse(res);
-            let countryEpObj = json.total.everyCountryTotal;
-            ops.dataTreeListObj.treeData = me._formatTreeData(countryEpObj);
-            let basicEp = new BasicEpControl(ops); // initialize page
-        },
-        "err": function (err) {
-            console.log(err)
-        }
-    });
+        ],
+        "mapsObj": {
+            "mapTabsDiv": "mapTabs",
+            "tabs": [
+                {
+                    "href": "#currentMap",
+                    "active": true,
+                    "text": "Current"
+                },
+                {
+                    "href": "#confirmedMap",
+                    "active": false,
+                    "text": "Confirmed"
+                },
+                {
+                    "href": "#deathMap",
+                    "active": false,
+                    "text": "Death"
+                },
+                {
+                    "href": "#recoveredMap",
+                    "active": false,
+                    "text": "Recovered"
+                }
+            ],
 
+        }
+    };
+
+    let basicEp = new BasicEpControl(ops); // initialize page
 });
 
 // the constructor of controller of basic epidemic page
@@ -158,6 +148,88 @@ BasicEpControl.prototype._init = function () {
         .text("COVID19 BASIC EPIDEMIC DASHBOARD");
 
     let dataListControl = new DataListControl(me.options.dataTreeListObj);
+    me._initMapTabs();
+    $.ajax({
+        "type": "POST",
+        "url": "/COVID_19_Info_System/getEpidemicInfoServlet",
+        "data": {},
+        "success": function (res) {
+            let json = JSON.parse(res);
+            let countryEpObj = json.total.everyCountryTotal;
+            me.options.dataTreeListObj.treeData = (function (countryEpObj) {
+                let treeData = [];
+                for (let key in countryEpObj) {
+                    let node = {};
+                    let epObj = countryEpObj[key];
+                    let confirmed = epObj["confirmed"];
+                    let death = epObj["death"];
+                    let recovered = epObj["recovered"];
+                    let current = confirmed - death - recovered;
+                    node["current"] = current;
+                    node["name"] = key + "  " + current;
+                    node["children"] = [];
+                    node["children"].push({
+                        "name": "Deaths  " + death
+                    });
+                    node["children"].push({
+                        "name": "Recovered  " + recovered
+                    });
+                    node["children"].push({
+                        "name": "Total  " + confirmed
+                    });
+
+                    treeData.push(node);
+                }
+
+                treeData.sort(function (a, b) {
+                    return b.current - a.current;
+                });
+
+                return treeData;
+            })(countryEpObj);
+            dataListControl.createList(me.options.dataTreeListObj.treeTargetDiv,
+                me.options.dataTreeListObj.treeData);
+            let eChartViewer = new EChartViewer();
+
+            let currentEC = eChartViewer.drawMap(me.options.mapsObj.tabs[0].href.substring(1),
+                json.res, (a, b, c) => a-b-c);
+            let confirmedEC = eChartViewer.drawMap(me.options.mapsObj.tabs[1].href.substring(1),
+                json.res, (a, b, c) => a);
+            let deathEC = eChartViewer.drawMap(me.options.mapsObj.tabs[2].href.substring(1),
+                json.res, (a, b, c) => b);
+            let recoveredEC = eChartViewer.drawMap(me.options.mapsObj.tabs[3].href.substring(1),
+                json.res, (a, b, c) => c);
+
+            $("a[href=\"" + me.options.mapsObj.tabs[0].href +"\"]").on("shown.bs.tab",
+                function (e) {
+                    currentEC.chart.resize();
+                });
+            $("a[href=\"" + me.options.mapsObj.tabs[1].href +"\"]").on("shown.bs.tab",
+                function (e) {
+                    confirmedEC.chart.resize();
+                });
+            $("a[href=\"" + me.options.mapsObj.tabs[2].href +"\"]").on("shown.bs.tab",
+                function (e) {
+                    deathEC.chart.resize();
+                });
+            $("a[href=\"" + me.options.mapsObj.tabs[3].href +"\"]").on("shown.bs.tab",
+                function (e) {
+                    recoveredEC.chart.resize();
+                });
+
+            window.addEventListener("resize",function (){
+                currentEC.chart.resize();
+                confirmedEC.chart.resize();
+                deathEC.chart.resize();
+                recoveredEC.chart.resize();
+            });
+        },
+        "err": function (err) {
+            console.log(err)
+        }
+    });
+
+
     me._initDisplayBoard();
 };
 
@@ -192,34 +264,11 @@ BasicEpControl.prototype._initDisplayBoard = function () {
     }
 };
 
-BasicEpControl.prototype._formatTreeData = function (countryEpObj) {
-    let treeData = [];
-    for (let key in countryEpObj) {
-        let node = {};
-        let epObj = countryEpObj[key];
-        let confirmed = epObj["confirmed"];
-        let death = epObj["death"];
-        let recovered = epObj["recovered"];
-        let current = confirmed - death - recovered;
-        node["current"] = current;
-        node["name"] = key + "  " + current;
-        node["children"] = [];
-        node["children"].push({
-            "name": "Deaths  " + death
-        });
-        node["children"].push({
-            "name": "Recovered  " + recovered
-        });
-        node["children"].push({
-            "name": "Total  " + confirmed
-        });
+BasicEpControl.prototype._initMapTabs = function () {
+    let me = this;
 
-        treeData.push(node);
-    }
+    let mapsTabControl = new MapsTabControl();
+    mapsTabControl.createTabs(me.options.mapsObj.mapTabsDiv,
+        me.options.mapsObj.tabs);
 
-    treeData.sort(function (a, b) {
-        return a.current - b.current;
-    });
-
-    return treeData;
 };

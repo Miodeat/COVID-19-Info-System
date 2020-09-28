@@ -2,3 +2,11 @@
     padding-left: 4%;
     color: white;
 }
+
+#dataTreeList, #mapsContainer, .myMap, #countryCases {
+    height: 400px;
+}
+
+.myMap, #mapsContainer, #mapsTab ,#tabs{
+    width: 100%;
+}

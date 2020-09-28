@@ -8,6 +8,10 @@ IViewer.prototype.drawStatistic = function (div, type,
     console.log("Not support yet");
 };
 
-IViewer.prototype.drawMap = function (div, data) {
+IViewer.prototype.drawMap = function (div, data, dataProcessor) {
     console.log("Not support yet");
+};
+
+IViewer.prototype.convertData = function (data) {
+    console.log("Not support yet")
 };
