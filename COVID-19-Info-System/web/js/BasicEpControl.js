@@ -5,7 +5,7 @@ $(document).ready(function () {
     // rationality page
     let CRMenuItemObj = {
         "id": "CRMenuItem",
-        "href": "collectiveRationality.html",
+        "href": "CollectiveRationality.html",
         "text": "Collective Rationality"
     };
     let analysisItemsArr = [CRMenuItemObj]; // the array of analysis menu items
