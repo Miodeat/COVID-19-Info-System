@@ -1,0 +1,34 @@
+
+
+.my-textTitle {
+    color: #363636;
+    text-align: center;
+    font-family: Bahnschrift;
+    /*font-size:smaller;*/
+
+}
+
+.my-textInfo {
+    color: white;
+    text-align: center;
+    font-size: small;
+}
+
+.my-previewImg {
+    text-align: center;
+    background-color: white;
+    margin: auto;
+}
+
+.my-textBody {
+    background-color: white;
+    /*text-align: center; !*让div内部文字居中*!*/
+    /*background-color: #fff;*/
+    /*border-radius: 20px;*/
+    position: absolute;
+    left: 20%;
+    right:20%;
+    top: auto;
+    /*margin: -50px 0 0 -50px;*/
+
+}
