@@ -1,13 +1,13 @@
 #dataTreeList {
     color: white;
     float: left;
-    padding-left: 4%;
-    width: 80%;
+    padding-left: 13%;
+    width: 67%;
 }
 
 #dataTreeListSeparator {
     float: right;
-    margin-right: 2%;
+    margin-right: 7%;
 }
 
 #listTitle {
@@ -24,7 +24,7 @@
 
 .tree-container {
     background-color: white;
-    height: 77%;
+    height: 85%;
 }
 
 .update-time-container {

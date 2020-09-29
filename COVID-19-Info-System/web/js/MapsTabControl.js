@@ -5,7 +5,7 @@ MapsTabControl.prototype.createTabs = function (div, tabs) {
     let me = this;
     let tabsContainer = $("#" + div);
     let tabsUl = $("<ul>").appendTo(tabsContainer)
-        .addClass("nav nav-tabs")
+        .addClass("nav nav-tabs tab-ul")
         .attr({
             "id": "tabs"
         });
@@ -21,14 +21,14 @@ MapsTabControl.prototype.createTabs = function (div, tabs) {
 
 MapsTabControl.prototype._createTab = function (tab, tabsUl, contentContainer) {
     let tabLi = $("<li>").appendTo(tabsUl)
-        .addClass("nav-item");
+        .addClass("nav-item tab-li");
     let tabContent = $("<div>").appendTo(contentContainer)
         .addClass("tab-pane fade myMap")
         .attr({
             "id": tab.href.substring(1)
         });
     let tab_a = $("<a>").appendTo(tabLi)
-        .addClass("nav-link")
+        .addClass("nav-link tab-a")
         .attr({
             "data-toggle": "tab",
             "href": tab.href

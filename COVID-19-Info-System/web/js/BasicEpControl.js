@@ -193,12 +193,53 @@ BasicEpControl.prototype._init = function () {
 
             let currentEC = eChartViewer.drawMap(me.options.mapsObj.tabs[0].href.substring(1),
                 json.res, (a, b, c) => a-b-c);
+            currentEC.chart.setOption({
+                "visualMap": {
+                    "inRange": {
+                        "color": "#d30808",
+                        "symbolSize": [5, 40],
+                        "opacity": 0.85
+                    }
+                }
+            });
+
             let confirmedEC = eChartViewer.drawMap(me.options.mapsObj.tabs[1].href.substring(1),
                 json.res, (a, b, c) => a);
+            confirmedEC.chart.setOption({
+                "visualMap": {
+                    "inRange": {
+                        "color": "#ffb40d",
+                        "symbolSize": [5, 40],
+                        "opacity": 0.85
+                    }
+                }
+            });
+
             let deathEC = eChartViewer.drawMap(me.options.mapsObj.tabs[2].href.substring(1),
                 json.res, (a, b, c) => b);
+            deathEC.chart.setOption({
+                "visualMap": {
+                    "inRange": {
+                        "color": "#e4e5e3",
+                        "symbolSize": [5, 40],
+                        "opacity": 0.85
+                    }
+                }
+            });
+
+
             let recoveredEC = eChartViewer.drawMap(me.options.mapsObj.tabs[3].href.substring(1),
                 json.res, (a, b, c) => c);
+            recoveredEC.chart.setOption({
+                "visualMap": {
+                    "inRange": {
+                        "color": "#65ba24",
+                        "symbolSize": [5, 40],
+                        "opacity": 0.85
+                    }
+                }
+            });
+
 
             $("a[href=\"" + me.options.mapsObj.tabs[0].href +"\"]").on("shown.bs.tab",
                 function (e) {

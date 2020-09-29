@@ -19,18 +19,27 @@ EChartViewer.prototype.drawMap = function (div, data, dataProcessor) {
 
     let result = me.convertData(data, dataProcessor);
     let current = result.data;
+    let min = result.max;
+    for (let i = 0; i < current.length; i++) {
+        let tmpData = current[i].value;
+
+        if (tmpData[2] == 0){
+            current.splice(i, 1);
+        }
+        else if (min > tmpData[2]){
+            min = tmpData[2];
+        }
+    }
     let options = {
         "geo": {
             "center": [0, 0],
             "roam": true,
             "map": "world",
             "itemStyle": {
-                "color": "rgb(0,0,0)",
-                "borderColor": "rgba(255,255,255,0.5)",
-                "boarderWidth": 1,
+                "color": "#000f1a",
             },
             "scaleLimit": {
-                "min": 1.5,
+                "min": 1.8,
             },
             "layoutCenter": ["50%", "50%"],
             "layoutSize": "100%",
@@ -51,19 +60,20 @@ EChartViewer.prototype.drawMap = function (div, data, dataProcessor) {
         },
         "visualMap": {
             "type": "continuous",
-            "min": 0,
+            "min": min,
             "max": result.max,
             "calculable": true,
             "realtime": false,
             "dimension": 2,
             "text": ["High", "Low"],
             "inRange": {
-                "color": ["#313695", "#4575b4",
-                    "#74add1", "#abd9e9", "#e0f3f8",
-                    "#ffffbf", "#fee090", "#fdae61",
-                    "#f46d43", "#d73027", "#a50026"],
-                "symbolSize": [10, 40],
-                "opacity": 0.6
+                // "color": ["#313695", "#4575b4",
+                //     "#74add1", "#abd9e9", "#e0f3f8",
+                //     "#ffffbf", "#fee090", "#fdae61",
+                //     "#f46d43", "#d73027", "#a50026"],
+                "color": "#d30808",
+                "symbolSize": [5, 40],
+                "opacity": 0.85
             },
             "textStyle": {
                 "color": "rgba(255,255,255,1)"
