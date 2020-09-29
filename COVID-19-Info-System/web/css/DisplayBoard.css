@@ -7,7 +7,7 @@
 .display-board {
     background-color: #434343;
     width: 80%;
-    height: 180px;
+    height: 140px;
     margin: 3%;
     padding: 2% 6%;
 }
@@ -15,12 +15,12 @@
 .board-title {
     font-weight: bold;
     font-size: 150%;
-    height: 40px;
+    height: 25%;
 }
 
 .board-text {
     color: cornflowerblue;
-    height: 80px;
+    height: 45%;
 }
 
 .learn-more-btn {
