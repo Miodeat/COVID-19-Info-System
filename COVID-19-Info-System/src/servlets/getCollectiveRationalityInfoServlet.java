@@ -25,7 +25,6 @@ public class getCollectiveRationalityInfoServlet extends HttpServlet {
         String dbName = "collectiverationaldb";
         JSONObject res = collectiveRationality_Service.getCollectiveRationalityInfo(Sql,dbName);
         System.out.println(res);
-        System.out.println("Path "+request.getSession().getServletContext().getRealPath(""));
         out.write(res.toString());
 
     }

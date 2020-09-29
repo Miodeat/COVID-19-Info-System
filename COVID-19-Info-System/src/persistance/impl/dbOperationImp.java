@@ -36,27 +36,30 @@ public class dbOperationImp implements dbOperation {
             connection = UtilDao.getConnection(dbInfo.getDbInfoPath(),dbName);
             PreparedStatement preparedStatement =connection.prepareStatement(querySql);
             ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println(querySql);
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
+
             while (resultSet.next()){
                 JSONObject object = new JSONObject();
                 for(int i = 1;i<=columnCount;i++){
                     String columnName =metaData.getColumnLabel(i);
                     String value = resultSet.getString(columnName);
                     object.put(columnName,value);
+//                    System.out.println(columnName+"  "+value);
                 }
                 array.add(object);
             }
             if(!connection.isClosed()){
                 UtilDao.closeConnection(connection);
             }
+
         }catch (Exception e){
             e.printStackTrace();
         }
         if(array.isEmpty()){
           res.put("res","错误");
         }else{
+
             res.put("res",array);
         }
         return res;
