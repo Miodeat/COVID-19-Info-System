@@ -1,6 +1,11 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.09.29  21：44
+### modified by Daisy
+1. 完成疫情数据的时间序列返回
+2. web.xml文件也已经改啦
+
 ## 2020.09.29 3:18
 
 ### modified by Miodeat
