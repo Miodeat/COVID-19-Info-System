@@ -22,4 +22,16 @@ public class epidemicService {
         dbOp = null;
         return res;
     }
+
+    public JSONObject insertEpidemicDataService(JSONObject data,String sql,String dbName){
+        JSONObject res = new JSONObject();
+        dbOp = new dbOperationImp();
+        try {
+            res = dbOp.insertData(data,sql,dbName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dbOp = null;
+        return res;
+    }
 }

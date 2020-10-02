@@ -4,7 +4,7 @@ import net.sf.json.JSONObject;
 
 public interface dbOperation {
 
-    public JSONObject insertData(JSONObject data, String insertSql);
+    public JSONObject insertData(JSONObject data, String insertSql,String dbName);
 
     public JSONObject updateData(JSONObject data, String updateSql);
 
