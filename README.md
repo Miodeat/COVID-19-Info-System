@@ -1,6 +1,12 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.02 18:00
+
+### modified by Miodeat
+
+1. displayboard 样式调整
+
 ## 2020.09.29 10:37
 
 ### modified by Miodeat

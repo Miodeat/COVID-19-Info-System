@@ -7,9 +7,9 @@
 .display-board {
     background-color: #434343;
     width: 80%;
-    height: 140px;
+    height: 150px;
     margin: 3%;
-    padding: 2% 6%;
+    padding: 1% 6% 3%;
 }
 
 .board-title {
@@ -20,7 +20,7 @@
 
 .board-text {
     color: cornflowerblue;
-    height: 45%;
+    height: 43%;
 }
 
 .learn-more-btn {

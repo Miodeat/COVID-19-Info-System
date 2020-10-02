@@ -29,7 +29,9 @@ ZTreeControl.prototype._init = function () {
             "showIcon": false,
             "showLine": false,
             "fontCss": function (treeId, treeNode) {
-                let cssObj = {};
+                let cssObj = {
+                    "color": "white"
+                };
                 if (treeNode.level == 0) {
                     cssObj["font-weight"] = "bold";
                 }
@@ -39,6 +41,9 @@ ZTreeControl.prototype._init = function () {
         },
         "edit": {
             "enable": false
+        },
+        "callback": {
+            "beforeClick": () => false
         }
     };
 };
