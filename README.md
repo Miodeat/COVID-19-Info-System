@@ -7,6 +7,18 @@
 
 1. displayboard 样式调整
 
+## 2020.10.02 10:46
+
+### modified by Daisy
+
+1. 已经将地图数据和Tree的结果分开返回了。地图数据是getEpidemicInfoServelt。Tree 是getTreeDataServlet
+2. 基本完成数据插入接口设计，除了数组类型的数据设置暂时还没写，其他的数据类型都是支持的了，并且已经做了测试。
+
+
+## 2020.09.29  21：44
+### modified by Daisy
+1. 完成疫情数据的时间序列返回
+2. web.xml文件也已经改啦
 ## 2020.09.29 10:37
 
 ### modified by Miodeat
@@ -15,6 +27,7 @@
 2. basic epidemic map 散点图式样调整
 3. basic epidemic map 标签导航栏式样调整
 4. basic epidemic map 世界地图式样调整
+
 
 ## 2020.09.29 3:18
 

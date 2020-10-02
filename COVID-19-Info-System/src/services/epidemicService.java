@@ -12,11 +12,25 @@ public class epidemicService {
 
         dbOp = new dbOperationImp();
         try {
-           res =  dbOp.queryData(sql,dbName);
+//            System.out.println("helldsd");
+            res =  dbOp.queryData(sql,dbName);
+//            System.out.println(res);
         } catch (Exception e) {
             e.printStackTrace();
         }
         //释放资源
+        dbOp = null;
+        return res;
+    }
+
+    public JSONObject insertEpidemicDataService(JSONObject data,String sql,String dbName){
+        JSONObject res = new JSONObject();
+        dbOp = new dbOperationImp();
+        try {
+            res = dbOp.insertData(data,sql,dbName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         dbOp = null;
         return res;
     }

@@ -13,7 +13,8 @@ import java.util.logging.Logger;
 
 public class UtilDao {
     private static String driver = "org.postgresql.Driver";
-    private static String url = "jdbc:postgresql://47.96.158.130/";
+//    private static String url = "jdbc:postgresql://47.96.158.130/";
+    private static String url = "jdbc:postgresql://localhost/";
     private static String user = "postgres";
     private static String password = "pj19980806";
 

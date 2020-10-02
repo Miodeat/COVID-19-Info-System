@@ -12,4 +12,40 @@
         <servlet-name>getEpidemicInfoServlet</servlet-name>
         <url-pattern>/getEpidemicInfoServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getCollectiveRationalityInfoServlet</servlet-name>
+        <servlet-class>servlets.getCollectiveRationalityInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getCollectiveRationalityInfoServlet</servlet-name>
+        <url-pattern>/getCollectiveRationalityInfoServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>getEpidemicTimeSeriesServlet</servlet-name>
+        <servlet-class>servlets.getEpidemicTimeSeriesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getEpidemicTimeSeriesServlet</servlet-name>
+        <url-pattern>/getEpidemicTimeSeriesServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getTreeDataServlet</servlet-name>
+        <servlet-class>servlets.getTreeDataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getTreeDataServlet</servlet-name>
+        <url-pattern>/getTreeDataServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InsertDataServlet</servlet-name>
+        <servlet-class>servlets.InsertDataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InsertDataServlet</servlet-name>
+        <url-pattern>/InsertDataServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
