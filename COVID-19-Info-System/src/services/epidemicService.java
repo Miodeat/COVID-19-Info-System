@@ -1,5 +1,6 @@
 package services;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import persistance.dbOperation;
 import persistance.impl.dbOperationImp;
@@ -23,11 +24,11 @@ public class epidemicService {
         return res;
     }
 
-    public JSONObject insertEpidemicDataService(JSONObject data,String sql,String dbName){
+    public JSONObject insertEpidemicDataService(JSONArray array, String sql, String dbName){
         JSONObject res = new JSONObject();
         dbOp = new dbOperationImp();
         try {
-            res = dbOp.insertData(data,sql,dbName);
+            res = dbOp.insertData(array,sql,dbName);
         } catch (Exception e) {
             e.printStackTrace();
         }

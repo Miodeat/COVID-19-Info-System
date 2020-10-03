@@ -1,6 +1,14 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+
+
+## 2020.10.03 20.40
+
+### modified by Daisy
+
+1. 完成疫情数据的数据库插入
+
 ## 2020.10.02 18:00
 
 ### modified by Miodeat
