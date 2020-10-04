@@ -1,10 +1,11 @@
 package persistance;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public interface dbOperation {
 
-    public JSONObject insertData(JSONObject data, String insertSql,String dbName);
+    public JSONObject insertData(JSONArray data, String insertSql, String dbName);
 
     public JSONObject updateData(JSONObject data, String updateSql);
 

@@ -12,6 +12,12 @@
 5. 重构了BasicEpControl中有关世界地图的代码，提升复用性和简洁性
 6. 重构了dataExhibition.css并将其拆分，使css文件夹分文件标准更加清晰
 
+## 2020.10.03 20.40
+
+### modified by Daisy
+
+1. 完成疫情数据的数据库插入
+
 ## 2020.10.02 18:00
 
 ### modified by Miodeat

@@ -25,64 +25,76 @@ public class dbOperationImp implements dbOperation {
 
     }
     @Override
-    public JSONObject insertData(JSONObject data, String insertSql, String dbName) {
+    public JSONObject insertData(JSONArray array, String insertSql, String dbName) {
+
+        System.out.println(insertSql);
         dbObject dbInfo = new dbObject();
         Connection connection = null;
         boolean insertRes = false;
+
         JSONObject res = new JSONObject();
         try {
             connection = UtilDao.getConnection(dbInfo.getDbInfoPath(),dbName);
-
             PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
-            Iterator iterator = data.keys();
             int i = 0;
-            while (iterator.hasNext()){
-                String key = (String)iterator.next();
-                String keyPart[] = key.split("-");
-                String value = data.getString(key);
-                i = Integer.parseInt(keyPart[0]);
-                switch (keyPart[1]){
-                    case "0":
-                        preparedStatement.setInt(i,Integer.parseInt(value));
-                        break;
-                    case "1":
-                        preparedStatement.setString(i,value);
-                        break;
-                    case "2":
-                        preparedStatement.setTime(i, Time.valueOf(value));
-                        break;
-                    case "3":
-                        preparedStatement.setTimestamp(i, Timestamp.valueOf(value));
-                        i++;
-                        break;
-                    case "4":
-                        preparedStatement.setDate(i, Date.valueOf(value));
-                        i++;
-                        break;
-                    case "5":
-                        preparedStatement.setDouble(i,Double.parseDouble(value));
-                        i++;
-                        break;
-                    case "6":
-                        preparedStatement.setArray(i, getArray(value));
-                        i++;
-                        break;
-                    case "7":
-                        preparedStatement.setFloat(i, Float.parseFloat(value));
-                        i++;
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + key);
+            JSONObject data = new JSONObject();
+            for(int j =0;j<array.size();j++){
+
+                data = array.getJSONObject(j);
+                Iterator iterator = data.keys();
+                while (iterator.hasNext()){
+                    String key = (String)iterator.next();
+                    String keyPart[] = key.split("-");
+                    String value = data.getString(key);
+                    i = Integer.parseInt(keyPart[0]);
+                    switch (keyPart[1]){
+                        case "0":
+                            preparedStatement.setInt(i,Integer.parseInt(value));
+                            break;
+                        case "1":
+                            preparedStatement.setString(i,value);
+                            break;
+                        case "2":
+                            preparedStatement.setTime(i, Time.valueOf(value));
+                            break;
+                        case "3":
+                            preparedStatement.setTimestamp(i, Timestamp.valueOf(value));
+                            i++;
+                            break;
+                        case "4":
+                            preparedStatement.setDate(i, Date.valueOf(value));
+                            i++;
+                            break;
+                        case "5":
+                            preparedStatement.setDouble(i,Double.parseDouble(value));
+                            i++;
+                            break;
+                        case "6":
+                            preparedStatement.setArray(i, getArray(value));
+                            i++;
+                            break;
+                        case "7":
+                            preparedStatement.setFloat(i, Float.parseFloat(value));
+                            i++;
+                            break;
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + key);
+                    }
                 }
+                preparedStatement.addBatch();
             }
-            int r = preparedStatement.executeUpdate();
-            if(r==1){
+           int []r= preparedStatement.executeBatch();
+
+            if(r.length>=0){
                 insertRes = true;
             }
-
+            if(!connection.isClosed()){
+                UtilDao.closeConnection(connection);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println(res);
         res.put("res",insertRes);
         return res;
     }
