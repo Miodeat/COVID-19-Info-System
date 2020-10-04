@@ -1,0 +1,12 @@
+#countryCases {
+    color: white;
+}
+
+.country-map, .country-st {
+    background-color: #2a2a28;
+}
+
+.country-map {
+    height: 50%;
+    width: 100%;
+}

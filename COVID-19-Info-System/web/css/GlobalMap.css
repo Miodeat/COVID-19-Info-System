@@ -1,0 +1,7 @@
+.myMap, #mapsContainer, #mapsTab {
+    width: 100%;
+}
+
+#mapsContainer {
+    background-color: #2a2a28;
+}

@@ -19,18 +19,11 @@ EChartViewer.prototype.drawMap = function (div, data, dataProcessor) {
 
     let result = me.convertData(data, dataProcessor);
     let current = result.data;
-    let min = result.max;
-    for (let i = 0; i < current.length; i++) {
-        let tmpData = current[i].value;
-
-        if (tmpData[2] == 0){
-            current.splice(i, 1);
-        }
-        else if (min > tmpData[2]){
-            min = tmpData[2];
-        }
-    }
+    let min = result.min;
     let options = {
+        "tooltip": {
+            "formatter": obj => obj.value[3] + ": " + obj.value[2]
+        },
         "geo": {
             "center": [0, 0],
             "roam": true,
@@ -89,19 +82,94 @@ EChartViewer.prototype.drawMap = function (div, data, dataProcessor) {
 EChartViewer.prototype.convertData = function (data, dataProcessor) {
     let finalData = [];
     let maxCurrent = 0;
+    let minCurrent = Number.POSITIVE_INFINITY;
     for (let i = 0; i < data.length; i++) {
         let current = dataProcessor(parseInt(data[i].confirmed),
             parseInt(data[i].death), parseInt(data[i].recovered));
+
+        current = parseInt(current)
+
+        if (current == 0) {
+            continue;
+        }
+
+        let area = data[i].province == "nan" ? data[i].country : data[i].province;
+
         if (current > maxCurrent) {
             maxCurrent = current;
         }
+
+        if (current < minCurrent) {
+            minCurrent = current;
+        }
+
         let pt_con = {
             "name": data[i].id,
-            "value": [data[i].lat, data[i].lon, current]
+            "value": [data[i].lat, data[i].lon, current, area, data[i].country]
         };
 
         finalData.push(pt_con);
     }
 
-    return {"data": finalData, "max": maxCurrent};
+    return {"data": finalData, "max": maxCurrent, "min": minCurrent};
+};
+
+EChartViewer.prototype.drawStatistic = function (div, type,
+                                                 width, height,
+                                                 X, Y) {
+    let me = this;
+
+    $("#" + div).css({
+        "width": width,
+        "height": height
+    });
+
+    let stChart = echarts.init(document.getElementById(div));
+    let options;
+    switch (type) {
+        case "bar":
+            options = me.drawBar(X, Y);
+            break;
+    }
+
+    stChart.setOption(options);
+    return {"chart": stChart, "options": options};
+};
+
+
+EChartViewer.prototype.drawBar = function (X, Y) {
+    let ops = {
+        "tooltip": {},
+        "grid": {
+            "containLabel": true,
+            "top": "10%",
+            "bottom": "10%",
+            "left": "2%",
+            "right": "2%"
+        },
+        "xAxis": {
+            "data": X
+        },
+        "yAxis": {},
+        "series": [
+            {
+                "type": "bar",
+                "itemStyle": {
+                    "color": "#fea900"
+                },
+                "data": Y
+            }
+        ],
+        "textStyle": {
+            "color": "#ffffff"
+        }
+    };
+
+    return ops;
+};
+
+EChartViewer.prototype.drawMapWithOps = function (div, ops) {
+    let mapChart = echarts.init(document.getElementById(div));
+    mapChart.setOption(ops);
+    return mapChart;
 };

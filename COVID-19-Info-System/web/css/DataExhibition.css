@@ -6,35 +6,3 @@
 #dataTreeList, #mapsContainer, .myMap, #countryCases {
     height: 430px;
 }
-
-.myMap, #mapsContainer, #mapsTab ,#tabs {
-    width: 100%;
-}
-
-.tab-ul {
-    width: 100%;
-    height: 30px;
-}
-
-.tab-li {
-    height: 100%;
-}
-
-.tab-a {
-    color: white;
-    height: 100%;
-    padding-top: 2%;
-}
-
-.tab-a:hover {
-    color: white;
-}
-
-.tab-a, .tab-ul {
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
-}
-
-#mapsContainer {
-    background-color: #2a2a28;
-}

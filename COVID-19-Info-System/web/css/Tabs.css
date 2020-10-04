@@ -1,0 +1,33 @@
+.tabs-container {
+    position: relative;
+    width: 100%;
+    height: 30px;
+}
+
+.tab-ul {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.tab-li {
+    height: 100%;
+}
+
+.tab-a {
+    color: white;
+    height: 100%;
+    padding-top: 2%;
+}
+
+.tab-a:hover {
+    color: white;
+}
+
+.tab-a, .tab-ul {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}

@@ -1,25 +1,25 @@
-MapsTabControl = function () {
+TabControl = function () {
 };
 
-MapsTabControl.prototype.createTabs = function (div, tabs) {
+TabControl.prototype.createTabs = function (div, contentId, tabs) {
     let me = this;
     let tabsContainer = $("#" + div);
-    let tabsUl = $("<ul>").appendTo(tabsContainer)
-        .addClass("nav nav-tabs tab-ul")
-        .attr({
-            "id": "tabs"
-        });
+
+    let tabsUlContainer = $("<div>").appendTo(tabsContainer)
+        .addClass("tabs-container");
+    let tabsUl = $("<ul>").appendTo(tabsUlContainer)
+        .addClass("nav nav-tabs tab-ul");
     let content = $("<div>").appendTo(tabsContainer)
         .addClass("tab-content")
         .attr({
-            "id": "mapsContainer"
+            "id": contentId
         });
     for (let i = 0; i < tabs.length; i++) {
         me._createTab(tabs[i], tabsUl, content);
     }
 };
 
-MapsTabControl.prototype._createTab = function (tab, tabsUl, contentContainer) {
+TabControl.prototype._createTab = function (tab, tabsUl, contentContainer) {
     let tabLi = $("<li>").appendTo(tabsUl)
         .addClass("nav-item tab-li");
     let tabContent = $("<div>").appendTo(contentContainer)

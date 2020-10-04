@@ -1,6 +1,17 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.04 15:50
+
+### modified by Miodeat
+
+1. 完成country cases 展示模块标签导航栏
+2. 完成country cases 展示模块地图
+3. 完整country cases 展示模块柱状统计图
+4. 解决了窗口缩放时tab标签会被覆盖的问题
+5. 重构了BasicEpControl中有关世界地图的代码，提升复用性和简洁性
+6. 重构了dataExhibition.css并将其拆分，使css文件夹分文件标准更加清晰
+
 ## 2020.10.02 18:00
 
 ### modified by Miodeat

@@ -1,13 +1,13 @@
 #dataTreeList {
     color: white;
     float: left;
-    padding-left: 13%;
-    width: 67%;
+    padding-left: 20%;
+    width: 90%;
 }
 
 #dataTreeListSeparator {
     float: right;
-    margin-right: 7%;
+    margin-right: 0;
 }
 
 #listTitle {

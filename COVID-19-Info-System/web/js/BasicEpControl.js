@@ -60,6 +60,7 @@ $(document).ready(function () {
         ],
         "mapsObj": {
             "mapTabsDiv": "mapTabs",
+            "contentId": "mapsContainer",
             "tabs": [
                 {
                     "href": "#currentMap",
@@ -83,6 +84,44 @@ $(document).ready(function () {
                 }
             ],
 
+        },
+        "countryCasesObj": {
+            "country": "China",
+            "container": "countryCases",
+            "titleDivId": "countryCasesTitle",
+            "titleTxt": "Country Cases",
+            "tabsDiv": "countryCasesTabs",
+            "contentId": "countryCasesContent",
+            "tabs": [
+                {
+                    "href": "#countryCurrent",
+                    "active": true,
+                    "text": "Current"
+                },
+                {
+                    "href": "#countryConfirmed",
+                    "active": false,
+                    "text": "Confirmed"
+                },
+                {
+                    "href": "#countryDeath",
+                    "active": false,
+                    "text": "Death"
+                },
+                {
+                    "href": "#countryRecovered",
+                    "active": false,
+                    "text": "Recovered"
+                }
+            ],
+            "mapDivCls": "country-map",
+            "stDivCls": "country-st"
+        },
+        "mapAndStColorObj": {
+            "current": "#d30808",
+            "confirmed": "#ffb40d",
+            "death": "#e4e5e3",
+            "recovered": "#65ba24"
         }
     };
 
@@ -151,125 +190,38 @@ BasicEpControl.prototype._init = function () {
     me._initMapTabs();
     $.ajax({
         "type": "POST",
-        "url": "/COVID_19_Info_System/getEpidemicInfoServlet",
+        "url": "/COVID_19_Info_System/getTreeDataServlet",
         "data": {},
         "success": function (res) {
-            let json = JSON.parse(res);
-            let countryEpObj = json.total.everyCountryTotal;
-            me.options.dataTreeListObj.treeData = (function (countryEpObj) {
-                let treeData = [];
-                for (let key in countryEpObj) {
-                    let node = {};
-                    let epObj = countryEpObj[key];
-                    let confirmed = epObj["confirmed"];
-                    let death = epObj["death"];
-                    let recovered = epObj["recovered"];
-                    let current = confirmed - death - recovered;
-                    node["current"] = current;
-                    node["name"] = key + "  " + current;
-                    node["children"] = [];
-                    node["children"].push({
-                        "name": "Deaths  " + death
-                    });
-                    node["children"].push({
-                        "name": "Recovered  " + recovered
-                    });
-                    node["children"].push({
-                        "name": "Total  " + confirmed
-                    });
-
-                    treeData.push(node);
-                }
-
-                treeData.sort(function (a, b) {
-                    return b.current - a.current;
-                });
-
-                return treeData;
-            })(countryEpObj);
-            dataListControl.createList(me.options.dataTreeListObj.treeTargetDiv,
-                me.options.dataTreeListObj.treeData);
-            let eChartViewer = new EChartViewer();
-
-            let currentEC = eChartViewer.drawMap(me.options.mapsObj.tabs[0].href.substring(1),
-                json.res, (a, b, c) => a-b-c);
-            currentEC.chart.setOption({
-                "visualMap": {
-                    "inRange": {
-                        "color": "#d30808",
-                        "symbolSize": [5, 40],
-                        "opacity": 0.85
-                    }
-                }
-            });
-
-            let confirmedEC = eChartViewer.drawMap(me.options.mapsObj.tabs[1].href.substring(1),
-                json.res, (a, b, c) => a);
-            confirmedEC.chart.setOption({
-                "visualMap": {
-                    "inRange": {
-                        "color": "#ffb40d",
-                        "symbolSize": [5, 40],
-                        "opacity": 0.85
-                    }
-                }
-            });
-
-            let deathEC = eChartViewer.drawMap(me.options.mapsObj.tabs[2].href.substring(1),
-                json.res, (a, b, c) => b);
-            deathEC.chart.setOption({
-                "visualMap": {
-                    "inRange": {
-                        "color": "#e4e5e3",
-                        "symbolSize": [5, 40],
-                        "opacity": 0.85
-                    }
-                }
-            });
-
-
-            let recoveredEC = eChartViewer.drawMap(me.options.mapsObj.tabs[3].href.substring(1),
-                json.res, (a, b, c) => c);
-            recoveredEC.chart.setOption({
-                "visualMap": {
-                    "inRange": {
-                        "color": "#65ba24",
-                        "symbolSize": [5, 40],
-                        "opacity": 0.85
-                    }
-                }
-            });
-
-
-            $("a[href=\"" + me.options.mapsObj.tabs[0].href +"\"]").on("shown.bs.tab",
-                function (e) {
-                    currentEC.chart.resize();
-                });
-            $("a[href=\"" + me.options.mapsObj.tabs[1].href +"\"]").on("shown.bs.tab",
-                function (e) {
-                    confirmedEC.chart.resize();
-                });
-            $("a[href=\"" + me.options.mapsObj.tabs[2].href +"\"]").on("shown.bs.tab",
-                function (e) {
-                    deathEC.chart.resize();
-                });
-            $("a[href=\"" + me.options.mapsObj.tabs[3].href +"\"]").on("shown.bs.tab",
-                function (e) {
-                    recoveredEC.chart.resize();
-                });
-
-            window.addEventListener("resize",function (){
-                currentEC.chart.resize();
-                confirmedEC.chart.resize();
-                deathEC.chart.resize();
-                recoveredEC.chart.resize();
-            });
+            me._initTree(res, dataListControl);
         },
         "err": function (err) {
             console.log(err)
         }
     });
 
+    $.ajax({
+        "type": "POST",
+        "url": "/COVID_19_Info_System/getEpidemicInfoServlet",
+        "data": {},
+        "success": function (res) {
+            me._initMaps(res);
+        },
+        "err": (err) => {console.log(err)}
+    });
+
+    let countryCasesControl = new CountryCasesControl(me.options.countryCasesObj);
+
+    $.ajax({
+        "type": "POST",
+        "url": "/COVID_19_Info_System/getEpidemicTimeSeriesServlet",
+        "data": {},
+        "success": function (res) {
+            me._updateCountryCasesSt(res, countryCasesControl,
+                me.options.countryCasesObj.country);
+        },
+        "err": (err) => {console.log(err)}
+    });
 
     me._initDisplayBoard();
 };
@@ -308,8 +260,222 @@ BasicEpControl.prototype._initDisplayBoard = function () {
 BasicEpControl.prototype._initMapTabs = function () {
     let me = this;
 
-    let mapsTabControl = new MapsTabControl();
+    let mapsTabControl = new TabControl();
     mapsTabControl.createTabs(me.options.mapsObj.mapTabsDiv,
+        me.options.mapsObj.contentId,
         me.options.mapsObj.tabs);
 
+};
+
+BasicEpControl.prototype._initTree = function (res, dataListControl) {
+    let me = this;
+
+    let json = JSON.parse(res);
+    let countryEpArr = json.res;
+    me.options.dataTreeListObj.treeData = (function (countryEpArr) {
+        let treeData = [];
+        for (let key in countryEpArr) {
+            let node = {};
+            let epObj = countryEpArr[key];
+            let confirmed = epObj["confirmed"];
+            let death = epObj["death"];
+            let recovered = epObj["recovered"];
+            let current = confirmed - death - recovered;
+            node["current"] = current;
+            node["name"] = epObj["country"] + "  " + current;
+            node["children"] = [];
+            node["children"].push({
+                "name": "Deaths  " + death
+            });
+            node["children"].push({
+                "name": "Recovered  " + recovered
+            });
+            node["children"].push({
+                "name": "Total  " + confirmed
+            });
+
+            treeData.push(node);
+        }
+
+        treeData.sort(function (a, b) {
+            return b.current - a.current;
+        });
+
+        return treeData;
+    })(countryEpArr);
+    dataListControl.createList(me.options.dataTreeListObj.treeTargetDiv,
+        me.options.dataTreeListObj.treeData);
+};
+
+BasicEpControl.prototype._initMaps = function (res) {
+    let me = this;
+
+    let json = JSON.parse(res);
+
+    let eChartViewer = new EChartViewer();
+
+    let currentEC = me._initSingleMap(me.options.mapsObj.tabs[0].href, eChartViewer,
+        json, me.options.mapAndStColorObj.current, (a, b, c) => a-b-c,
+        me.options.countryCasesObj.tabs[0].href.substring(1) + "Map",
+        me.options.countryCasesObj.country);
+
+    let confirmedEC = me._initSingleMap(me.options.mapsObj.tabs[1].href, eChartViewer,
+        json, me.options.mapAndStColorObj.confirmed, (a, b, c) => a,
+        me.options.countryCasesObj.tabs[1].href.substring(1) + "Map",
+        me.options.countryCasesObj.country);
+
+    let deathEC = me._initSingleMap(me.options.mapsObj.tabs[2].href, eChartViewer,
+        json, me.options.mapAndStColorObj.death, (a, b, c) => b,
+        me.options.countryCasesObj.tabs[2].href.substring(1) + "Map",
+        me.options.countryCasesObj.country);
+
+    let recoveredEC = me._initSingleMap(me.options.mapsObj.tabs[3].href, eChartViewer,
+        json, me.options.mapAndStColorObj.recovered, (a, b, c) => c,
+        me.options.countryCasesObj.tabs[3].href.substring(1) + "Map",
+        me.options.countryCasesObj.country);
+
+};
+
+BasicEpControl.prototype._initSingleMap = function (worldHref, eChartViewer,
+                                                    json, color, dataProcessor,
+                                                    countryMapDiv, country) {
+    let me = this;
+
+    let ec = eChartViewer.drawMap(worldHref.substring(1),
+        json.res, dataProcessor);
+    ec.chart.setOption({
+        "visualMap": {
+            "inRange": {
+                "color": color,
+                "symbolSize": [5, 40],
+                "opacity": 0.85
+            }
+        }
+    });
+
+    ec.options.visualMap.inRange = {
+        "color": color,
+        "symbolSize": [5, 40],
+        "opacity": 0.85
+    };
+
+    $("a[href=\"" + worldHref +"\"]").on("shown.bs.tab",
+        e => {ec.chart.resize();});
+
+    window.addEventListener("resize",function (){
+        ec.chart.resize();
+    });
+
+    me._updateSingleCountryCasesMap(countryMapDiv, ec.options, country);
+
+    return ec;
+};
+
+BasicEpControl.prototype._updateCountryCasesSt = function (res, countryCasesControl, country) {
+    let me = this;
+
+    let json = JSON.parse(res);
+
+    let ts = json.timeSeries;
+    let countryCurrentSt = me._updateSingleSt(me.options.countryCasesObj.tabs[0].href,
+        country, ts, countryCasesControl, (a, b, c) => a - b - c,
+        me.options.mapAndStColorObj.current);
+
+    let countryConfirmedSt = me._updateSingleSt(me.options.countryCasesObj.tabs[1].href,
+        country, ts, countryCasesControl, (a, b, c) => a,
+        me.options.mapAndStColorObj.confirmed);
+    let countryDeathSt = me._updateSingleSt(me.options.countryCasesObj.tabs[2].href,
+        country, ts, countryCasesControl, (a, b, c) => b,
+        me.options.mapAndStColorObj.death);
+    let countryRecoveredSt = me._updateSingleSt(me.options.countryCasesObj.tabs[3].href,
+        country, ts, countryCasesControl, (a, b, c) => c,
+        me.options.mapAndStColorObj.recovered);
+
+};
+
+BasicEpControl.prototype._updateSingleSt = function (href, country, ts,
+                                                     countryCasesControl,
+                                                     dataProcessor, color) {
+    let me = this;
+    let st = countryCasesControl.drawSt(ts, country,
+        dataProcessor, href.substring(1) + "St");
+
+    st.chart.setOption({
+        "series": [{
+            "itemStyle": {
+                "color": color
+            }
+        }]
+    });
+
+    $("a[href=\"" + href +"\"]").on("shown.bs.tab",
+        function (e) {
+            st.chart.resize();
+        });
+
+    window.addEventListener("resize",function (){
+        st.chart.resize();
+    });
+
+    return st;
+};
+
+BasicEpControl.prototype._updateSingleCountryCasesMap = function (div, ops, country) {
+    let me = this;
+
+    let data = ops.series.data;
+    let minLong = 180;
+    let maxLong = -180;
+    let minLat = 90;
+    let maxLat = -90;
+
+    for (let i = 0; i < data.length; i++) {
+        let valueArr = data[i].value;
+        if(valueArr[valueArr.length - 1] == country) {
+            let lat = parseFloat(valueArr[1]);
+            let long = parseFloat(valueArr[0]);
+            minLat = lat < minLat ? lat : minLat;
+            maxLat = lat > maxLat ? lat : maxLat;
+            minLong = long < minLong ? long : minLong;
+            maxLong = long > maxLong ? long : maxLong;
+        }
+        else {
+            data.splice(i, 1);
+            i--;
+        }
+    }
+
+    if (minLong == maxLong) {
+        minLong -= 30;
+        maxLong += 30;
+    }
+
+    if (maxLat == minLat) {
+        minLat -= 0;
+        maxLat += 0;
+    }
+
+    minLat -= 17;
+    maxLat += 17;
+    minLong -= 15;
+    maxLong += 15;
+
+    ops.series.data = data;
+    ops.geo.boundingCoords = [
+        [minLong, maxLat],
+        [maxLong, minLat]
+    ];
+    ops.geo.roam = false;
+
+    ops.geo.center = [(maxLong + minLong) / 2, (maxLat + minLat) / 2];
+
+    let eChartViewer = new EChartViewer();
+    let mapC = eChartViewer.drawMapWithOps(div, ops);
+
+    $("a[href=\"" + "#" + div.substr(0, div.length - 3) +"\"]").on("shown.bs.tab",
+        function (e) {
+            mapC.resize();
+        });
+
+    window.addEventListener("resize", () => {mapC.resize()})
 };
