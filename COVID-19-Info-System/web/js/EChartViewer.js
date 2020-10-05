@@ -25,20 +25,20 @@ EChartViewer.prototype.drawMap = function (div, data, dataProcessor) {
             "formatter": obj => obj.value[3] + ": " + obj.value[2]
         },
         "geo": {
-            "center": [0, 0],
+            "center": [0, 10],
             "roam": true,
             "map": "world",
             "itemStyle": {
                 "color": "#000f1a",
             },
             "scaleLimit": {
-                "min": 1.8,
+                "min": 1.0,
             },
             "layoutCenter": ["50%", "50%"],
             "layoutSize": "100%",
             "boundingCoords": [
-                [-180, 90],
-                [180, -90]
+                [-110, 65],
+                [110, -65]
             ],
             "emphasis": {
                 "label": {
@@ -87,7 +87,7 @@ EChartViewer.prototype.convertData = function (data, dataProcessor) {
         let current = dataProcessor(parseInt(data[i].confirmed),
             parseInt(data[i].death), parseInt(data[i].recovered));
 
-        current = parseInt(current)
+        current = parseInt(current);
 
         if (current == 0) {
             continue;

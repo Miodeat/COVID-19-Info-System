@@ -3,6 +3,7 @@
     float: left;
     padding-left: 20%;
     width: 90%;
+    height: 460px;
 }
 
 #dataTreeListSeparator {
@@ -24,11 +25,11 @@
 
 .tree-container {
     background-color: #2a2a28;
-    height: 85%;
+    height: 78%;
 }
 
 .update-time-container {
-    height: 15%;
+    height: 14%;
 }
 
 .update-time-label-container, .time-area {
@@ -45,4 +46,5 @@
 
 .time-area {
     padding-top: 4%;
+    padding-left: 1%;
 }

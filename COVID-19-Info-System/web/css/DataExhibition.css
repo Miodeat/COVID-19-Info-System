@@ -3,6 +3,6 @@
     color: white;
 }
 
-#dataTreeList, #mapsContainer, .myMap, #countryCases {
-    height: 430px;
+.my-pane {
+    height: 100%;
 }

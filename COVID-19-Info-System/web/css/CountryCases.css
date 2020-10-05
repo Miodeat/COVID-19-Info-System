@@ -1,12 +1,33 @@
 #countryCases {
     color: white;
+    height: 100%;
 }
 
-.country-map, .country-st {
+#countryCasesContent {
+    height: 86%;
     background-color: #2a2a28;
 }
 
 .country-map {
     height: 50%;
     width: 100%;
+}
+
+#countrySelect {
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #5598fa;
+    width: 30%;
+    height: 93%;
+}
+
+#countryCasesTitle>.custom-select {
+    padding: 0 1.75rem 0 .75rem;
+}
+
+#countryCasesTitle {
+    height: 8%;
 }

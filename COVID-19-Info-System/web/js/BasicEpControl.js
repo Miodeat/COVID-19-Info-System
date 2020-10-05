@@ -90,6 +90,7 @@ $(document).ready(function () {
             "container": "countryCases",
             "titleDivId": "countryCasesTitle",
             "titleTxt": "Country Cases",
+            "countrySelectId": "countrySelect",
             "tabsDiv": "countryCasesTabs",
             "contentId": "countryCasesContent",
             "tabs": [
@@ -205,7 +206,10 @@ BasicEpControl.prototype._init = function () {
         "url": "/COVID_19_Info_System/getEpidemicInfoServlet",
         "data": {},
         "success": function (res) {
-            me._initMaps(res);
+            let json = JSON.parse(res);
+            me._initMaps(json);
+            me._initCountrySelect(me.options.countryCasesObj.countrySelectId,
+                me._getCountriesFromMapData(json), me.options.countryCasesObj.country);
         },
         "err": (err) => {console.log(err)}
     });
@@ -307,10 +311,8 @@ BasicEpControl.prototype._initTree = function (res, dataListControl) {
         me.options.dataTreeListObj.treeData);
 };
 
-BasicEpControl.prototype._initMaps = function (res) {
+BasicEpControl.prototype._initMaps = function (json) {
     let me = this;
-
-    let json = JSON.parse(res);
 
     let eChartViewer = new EChartViewer();
 
@@ -319,20 +321,28 @@ BasicEpControl.prototype._initMaps = function (res) {
         me.options.countryCasesObj.tabs[0].href.substring(1) + "Map",
         me.options.countryCasesObj.country);
 
+    me.currentMapOption = currentEC.options;
+
     let confirmedEC = me._initSingleMap(me.options.mapsObj.tabs[1].href, eChartViewer,
         json, me.options.mapAndStColorObj.confirmed, (a, b, c) => a,
         me.options.countryCasesObj.tabs[1].href.substring(1) + "Map",
         me.options.countryCasesObj.country);
+
+    me.confirmedMapOption = confirmedEC.options;
 
     let deathEC = me._initSingleMap(me.options.mapsObj.tabs[2].href, eChartViewer,
         json, me.options.mapAndStColorObj.death, (a, b, c) => b,
         me.options.countryCasesObj.tabs[2].href.substring(1) + "Map",
         me.options.countryCasesObj.country);
 
+    me.deathMapOption = deathEC.options;
+
     let recoveredEC = me._initSingleMap(me.options.mapsObj.tabs[3].href, eChartViewer,
         json, me.options.mapAndStColorObj.recovered, (a, b, c) => c,
         me.options.countryCasesObj.tabs[3].href.substring(1) + "Map",
         me.options.countryCasesObj.country);
+
+    me.recoveredMapOption = recoveredEC.options;
 
 };
 
@@ -423,7 +433,13 @@ BasicEpControl.prototype._updateSingleSt = function (href, country, ts,
 BasicEpControl.prototype._updateSingleCountryCasesMap = function (div, ops, country) {
     let me = this;
 
-    let data = ops.series.data;
+    $("#" + div).removeAttr("_echarts_instance_")
+        .removeAttr("style")
+        .empty();
+
+    let options = JSON.parse(JSON.stringify(ops));
+
+    let data = options.series.data;
     let minLong = 180;
     let maxLong = -180;
     let minLat = 90;
@@ -445,32 +461,26 @@ BasicEpControl.prototype._updateSingleCountryCasesMap = function (div, ops, coun
         }
     }
 
-    if (minLong == maxLong) {
-        minLong -= 30;
-        maxLong += 30;
-    }
+    minLat -= 7;
+    maxLat += 7;
+    minLong -= 5;
+    maxLong += 5;
 
-    if (maxLat == minLat) {
-        minLat -= 0;
-        maxLat += 0;
-    }
-
-    minLat -= 17;
-    maxLat += 17;
-    minLong -= 15;
-    maxLong += 15;
-
-    ops.series.data = data;
-    ops.geo.boundingCoords = [
+    options.series.data = data;
+    options.geo.boundingCoords = [
         [minLong, maxLat],
         [maxLong, minLat]
     ];
-    ops.geo.roam = false;
+    options.geo.roam = "scale";
+    options.geo.scaleLimit = {
+        "min": 0.5
+    };
 
-    ops.geo.center = [(maxLong + minLong) / 2, (maxLat + minLat) / 2];
+    options.geo.center = [(maxLong + minLong) / 2, (maxLat + minLat) / 2];
+    options.tooltip = ops.tooltip;
 
     let eChartViewer = new EChartViewer();
-    let mapC = eChartViewer.drawMapWithOps(div, ops);
+    let mapC = eChartViewer.drawMapWithOps(div, options);
 
     $("a[href=\"" + "#" + div.substr(0, div.length - 3) +"\"]").on("shown.bs.tab",
         function (e) {
@@ -478,4 +488,48 @@ BasicEpControl.prototype._updateSingleCountryCasesMap = function (div, ops, coun
         });
 
     window.addEventListener("resize", () => {mapC.resize()})
+};
+
+BasicEpControl.prototype._initCountrySelect = function (id, countries, selectedCountry) {
+    let me = this;
+    let countrySelect = $("#" + id);
+    for (let i = 0; i < countries.length; i++) {
+        let option = $("<option>").appendTo(countrySelect)
+            .attr({
+                "value": countries[i]
+            })
+            .text(countries[i]);
+
+        if (countries[i] == selectedCountry) {
+            option.attr({
+                "selected": true
+            });
+        }
+    }
+
+    countrySelect.on("change", ev => {
+        let opsArr = [me.currentMapOption, me.confirmedMapOption,
+            me.deathMapOption, me.recoveredMapOption];
+        for (let i = 0; i < 4; i++) {
+            me._updateSingleCountryCasesMap(
+                me.options.countryCasesObj.tabs[i].href.substring(1) + "Map",
+                opsArr[i],
+                $("#" + me.options.countryCasesObj.countrySelectId).val());
+        }
+        // me._updateCountryCasesSt()
+    })
+};
+
+BasicEpControl.prototype._getCountriesFromMapData = function (json) {
+    let me = this;
+
+    let arr = json.res;
+    let countryList = [];
+    arr.forEach((value, key) => {
+        if (countryList.indexOf(value.country) === -1) {
+            countryList.push(value.country);
+        }
+    });
+
+    return countryList;
 };

@@ -1,7 +1,7 @@
 package persistance.impl;
 
-import com.ibatis.common.jdbc.ScriptRunner;
-import com.ibatis.common.resources.Resources;
+//import com.ibatis.common.jdbc.ScriptRunner;
+//import com.ibatis.common.resources.Resources;
 import domain.dbObject;
 import persistance.UtilDao;
 import persistance.dataUpdate;
@@ -11,9 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.SQLExec;
-import org.apache.tools.ant.types.EnumeratedAttribute;
+//import org.apache.tools.ant.Project;
+//import org.apache.tools.ant.taskdefs.SQLExec;
+//import org.apache.tools.ant.types.EnumeratedAttribute;
 
 public class dataUpdateImp implements dataUpdate {
     dbObject dbInfo = new dbObject();
@@ -50,32 +50,32 @@ public class dataUpdateImp implements dataUpdate {
 //            e.printStackTrace();
 //        }
 
-        try {
-            connection = UtilDao.getConnection(dbInfo.getDbInfoPath(),"basicdb");
-            SQLExec sqlExec = new SQLExec();
-            String driverClass = "org.postgresql.Driver";
-            String url = "jdbc:postgresql://localhost/basicdb";
-            String username = "postgres";
-            String password = "pj19980806";
-            sqlExec.setDriver(driverClass);
-            sqlExec.setUrl(url);
-            sqlExec.setUserid(username);
-            sqlExec.setPassword(password);
-            sqlExec.setSrc(new File("D:/Projects/COVID-19-Info-System/src/data/sql_create_basic.sql"));
-            //如果有出错的语句继续执行.
-            sqlExec.setOnerror((SQLExec.OnError) (EnumeratedAttribute.getInstance(SQLExec.OnError.class, "continue")));
-            sqlExec.setPrint(true);
-            sqlExec.setOutput(new File("D:/userinfo.txt"));
-            sqlExec.setProject(new Project());
-            sqlExec.execute();
-//            ScriptRunner runner = new ScriptRunner(connection, false, false);
-//            runner.setErrorLogWriter(null);
-//            runner.setLogWriter(null);
-//            runner.runScript(Resources.getResourceAsReader("D:\\Projects\\COVID-19-Info-System\\src\\data\\sql_create_basic.sql"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            connection = UtilDao.getConnection(dbInfo.getDbInfoPath(),"basicdb");
+//            SQLE xec sqlExec = new SQLExec();
+//            String driverClass = "org.postgresql.Driver";
+//            String url = "jdbc:postgresql://localhost/basicdb";
+//            String username = "postgres";
+//            String password = "pj19980806";
+//            sqlExec.setDriver(driverClass);
+//            sqlExec.setUrl(url);
+//            sqlExec.setUserid(username);
+//            sqlExec.setPassword(password);
+//            sqlExec.setSrc(new File("D:/Projects/COVID-19-Info-System/src/data/sql_create_basic.sql"));
+//            //如果有出错的语句继续执行.
+//            sqlExec.setOnerror((SQLExec.OnError) (EnumeratedAttribute.getInstance(SQLExec.OnError.class, "continue")));
+//            sqlExec.setPrint(true);
+//            sqlExec.setOutput(new File("D:/userinfo.txt"));
+//            sqlExec.setProject(new Project());
+//            sqlExec.execute();
+////            ScriptRunner runner = new ScriptRunner(connection, false, false);
+////            runner.setErrorLogWriter(null);
+////            runner.setLogWriter(null);
+////            runner.runScript(Resources.getResourceAsReader("D:\\Projects\\COVID-19-Info-System\\src\\data\\sql_create_basic.sql"));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 }

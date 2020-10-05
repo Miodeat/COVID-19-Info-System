@@ -1,7 +1,7 @@
 
 DataListControl = function (ops) {
     let me = this;
-    me.options = ops;
+    me.options = $.extend({}, ops);
 
     me._init();
 };

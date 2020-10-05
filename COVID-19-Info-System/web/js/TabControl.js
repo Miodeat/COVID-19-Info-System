@@ -23,7 +23,7 @@ TabControl.prototype._createTab = function (tab, tabsUl, contentContainer) {
     let tabLi = $("<li>").appendTo(tabsUl)
         .addClass("nav-item tab-li");
     let tabContent = $("<div>").appendTo(contentContainer)
-        .addClass("tab-pane fade myMap")
+        .addClass("tab-pane fade my-pane")
         .attr({
             "id": tab.href.substring(1)
         });

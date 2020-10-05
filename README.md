@@ -1,6 +1,16 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.05 20:40
+
+### modified by Miodeat
+
+1. 为country cases添加了标题和国家选择下拉框
+2. 现在可以通过选择国家选择下拉框更新国家地图了
+3. 国家地图现在可以进行缩放了
+4. 调整了世界地图的显示范围
+5. dataExhibition布局调整
+
 ## 2020.10.04 15:50
 
 ### modified by Miodeat

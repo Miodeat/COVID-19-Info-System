@@ -22,11 +22,24 @@ CountryCasesControl.prototype._init = function () {
 CountryCasesControl.prototype._createTitle = function () {
     let me = this;
 
-    $("<h4>").appendTo(me.options.container)
+    let titleDiv = $("<div>").appendTo($("#" + me.options.container))
         .attr({
             "id": me.options.titleDivId
+        });
+    $("<h4>").appendTo(titleDiv)
+        .text(me.options.titleTxt)
+        .css({
+            "float": "left"
+        });
+
+    $("<select>").appendTo(titleDiv)
+        .css({
+            "float": "right",
         })
-        .text(me.options.titleTxt);
+        .addClass("custom-select")
+        .attr({
+            "id": me.options.countrySelectId
+        });
 
 };
 
