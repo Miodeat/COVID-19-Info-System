@@ -12,9 +12,6 @@ DataListControl.prototype._init = function () {
     $("#" + me.options.container);
     me._createTitle(me.options.treeTitleDiv, me.options.treeTitleId,
         me.options.treeTitleTxt);
-
-    me._createUpdateTime(me.options.updateTimeDiv, me.options.date,
-        me.options.time);
 };
 
 DataListControl.prototype._createTitle = function (div, id, text) {
@@ -38,7 +35,7 @@ DataListControl.prototype.createList = function (div, data) {
     zTreeControl.createTree(div, data)
 };
 
-DataListControl.prototype._createUpdateTime = function (div, date, time) {
+DataListControl.prototype.createUpdateTime = function (div, date, time) {
     let me = this;
     let updateTimeDiv = $("#" + div)
         .addClass("update-time-container");

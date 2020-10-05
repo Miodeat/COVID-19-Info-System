@@ -38,7 +38,7 @@ $(document).ready(function () {
             "treeData": [],
             "updateTimeDiv": "listUpdateTime",
             "date": "9/26/2020",
-            "time": "14:55"
+            "time": "0:00"
         },
         "boardContainer": "displayBoards",
         "boardObjArr": [
@@ -309,6 +309,9 @@ BasicEpControl.prototype._initTree = function (res, dataListControl) {
     })(countryEpArr);
     dataListControl.createList(me.options.dataTreeListObj.treeTargetDiv,
         me.options.dataTreeListObj.treeData);
+    let date = countryEpArr[0]["update_time"].replace(/-/g, "/");
+    dataListControl.createUpdateTime(me.options.dataTreeListObj.updateTimeDiv,
+        date, me.options.dataTreeListObj.time);
 };
 
 BasicEpControl.prototype._initMaps = function (json) {
