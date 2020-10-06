@@ -1,6 +1,12 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.06 9：42
+
+### modified by Daisy
+
+1. 完成国家时间序列数据获取的条件查询。查询条件为country
+
 ## 2020.10.05 21:15
 
 ### modified by Miodeat

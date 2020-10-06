@@ -22,15 +22,20 @@ public class getEpidemicTimeSeriesServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         epidemic_Service = new epidemicService();
-        String sql = "select country,sum(confirmed) as confirmed,sum(death) as death, sum(recovered) as recovered,update_time " +
-                "from epidemic_data group by country,update_time order by update_time desc";
+        String country = request.getParameter("country");
+//        String country = "China";
+        String sql = "select country,update_time, sum(confirmed) as confirmed,sum(death) as death,sum(recovered) as recovered " +
+                "from epidemic_data group by country,update_time " +
+                "having country like '" +country+"'"+
+                "order by update_time desc ";
+//        String sql = "select country,sum(confirmed) as confirmed,sum(death) as death, sum(recovered) as recovered,update_time " +
+//                "from epidemic_data group by country,update_time order by update_time desc";
         String dbName = "basicdb";
         JSONObject res = new JSONObject();
 //        res = epidemic_Service.getEpidemicInfoService(sql,dbName);
         res.put("timeSeries",getTimeSeries(
                 epidemic_Service.getEpidemicInfoService(sql,dbName))) ;
         System.out.println(res);
-        System.out.println("dada");
         out.write(res.toString());
 
     }
