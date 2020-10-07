@@ -214,14 +214,16 @@ BasicEpControl.prototype._init = function () {
         "err": (err) => {console.log(err)}
     });
 
-    let countryCasesControl = new CountryCasesControl(me.options.countryCasesObj);
+    me.countryCasesControl = new CountryCasesControl(me.options.countryCasesObj);
 
     $.ajax({
         "type": "POST",
         "url": "/COVID_19_Info_System/getEpidemicTimeSeriesServlet",
-        "data": {},
+        "data": {
+            "country": me.options.countryCasesObj.country
+        },
         "success": function (res) {
-            me._updateCountryCasesSt(res, countryCasesControl,
+            me._updateCountryCasesSt(res, me.countryCasesControl,
                 me.options.countryCasesObj.country);
         },
         "err": (err) => {console.log(err)}
@@ -511,15 +513,25 @@ BasicEpControl.prototype._initCountrySelect = function (id, countries, selectedC
     }
 
     countrySelect.on("change", ev => {
+        let country = $("#" + me.options.countryCasesObj.countrySelectId).val();
         let opsArr = [me.currentMapOption, me.confirmedMapOption,
             me.deathMapOption, me.recoveredMapOption];
         for (let i = 0; i < 4; i++) {
             me._updateSingleCountryCasesMap(
                 me.options.countryCasesObj.tabs[i].href.substring(1) + "Map",
-                opsArr[i],
-                $("#" + me.options.countryCasesObj.countrySelectId).val());
+                opsArr[i], country);
         }
-        // me._updateCountryCasesSt()
+        $.ajax({
+            "type": "POST",
+            "url": "/COVID_19_Info_System/getEpidemicTimeSeriesServlet",
+            "data": {
+                "country": country
+            },
+            "success": function (res) {
+                me._updateCountryCasesSt(res, me.countryCasesControl, country);
+            },
+            "err": (err) => {console.log(err)}
+        });
     })
 };
 
