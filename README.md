@@ -1,9 +1,15 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.09 22:39
+
+### modified by Miodeat
+
+1. 添加了后台执行脚本的抽象类
+
 ## 2020.10.07 10:10
 
-### modified by Daisy
+### modified by Miodeat
 
 1. 国家统计图可以根据选择动态改变了
 
