@@ -1,6 +1,14 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.10
+
+### modified by dinghy
+
+1. CR数据库数据展示
+2. 小修小改
+
+
 ## 2020.10.07 10:10
 
 ### modified by Daisy

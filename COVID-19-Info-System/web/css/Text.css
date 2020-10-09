@@ -1,5 +1,3 @@
-
-
 .my-textTitle {
     color: #363636;
     text-align: center;
@@ -9,9 +7,9 @@
 }
 
 .my-textInfo {
-    color: white;
+    color: #363636;
     text-align: center;
-    font-size: small;
+    font-size: 12px;
 }
 
 .my-previewImg {
@@ -22,12 +20,11 @@
 
 .my-textBody {
     background-color: white;
-    /*text-align: center; !*让div内部文字居中*!*/
     /*background-color: #fff;*/
     /*border-radius: 20px;*/
     position: absolute;
     left: 20%;
-    right:20%;
+    right: 20%;
     top: auto;
     /*margin: -50px 0 0 -50px;*/
 

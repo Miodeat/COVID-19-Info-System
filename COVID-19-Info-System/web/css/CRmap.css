@@ -1,6 +1,7 @@
 .my-map{
-    height:450px;
-    width:720px;
-    margin: auto;
+    height:500px;
+    width:660px;
+    /*margin: auto;*/
+    left: 5%;
     background-color: #333333;
 }
