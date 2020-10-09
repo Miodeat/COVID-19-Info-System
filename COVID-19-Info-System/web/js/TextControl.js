@@ -50,11 +50,29 @@ TextControl.prototype._createPreviewImg = function (div, img) {
 
 //showdown.js to transposed Markdown to html so that to achieve composing
 TextControl.prototype._createBody = function (div, text) {
-    let content = text;//@TODO: get text from .md file
-    let converter = new showdown.Converter();
-    let htmlcontent = converter.makeHtml(content); //transposed MarkDown to html
-    let textbody = $("#"+div)
-        .addClass("my-textBody");
-    textbody.html(htmlcontent);
+    let xmlHttp = null;
+    if (window.ActiveXObject) {
+        // IE6, IE5 浏览器执行代码
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } else if (window.XMLHttpRequest) {
+        // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlHttp = new XMLHttpRequest();
+    }
+    //2.如果实例化成功，就调用open（）方法：
+    if (xmlHttp != null) {
+        xmlHttp.open("get", text, true);
+        xmlHttp.send();
+        xmlHttp.onreadystatechange = doResult; //设置回调函数
+    }
+    function doResult() {
+        let content = xmlHttp.responseText;
+        let converter = new showdown.Converter();
+        let htmlcontent = converter.makeHtml(content); //transposed MarkDown to html
+        let textbody = $("#" + div)
+            .addClass("my-textBody");
+        textbody.html(htmlcontent);
+
+    }
+
 
 }

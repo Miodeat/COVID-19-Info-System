@@ -29,14 +29,14 @@
     <script src="js/TextControl.js"></script>
     <link rel="stylesheet" href="css/Text.css">
     <script src="support/showdown-1.9.1/dist/showdown.js"></script>
-    <script src="js/echarts.js" charset = "utf-8"></script>
-    <script src="js/world.js" charset ="utf-8"></script>
+    <script src="js/echarts.js" charset="utf-8"></script>
+    <script src="js/world.js" charset="utf-8"></script>
     <link rel="stylesheet" href="css/CRmap.css">
     <link rel="stylesheet" href="css/DataExhibition.css">
 
 
 </head>
-<body style="background-color: white ;width: 100%; height: 100%; margin: 0">
+<body style="background-color:white ;width: 100%; height: 100%; margin: 0">
 
 <div class="container-fluid">
     <div id="menubar" class="row">
@@ -51,7 +51,13 @@
     <div id="title" class="row" style="background-color: #363636; font-family: Bahnschrift"></div>
 
     <!--数据显示部分-->
-    <div id="dataMapExhibition" class="my-map"></div>
+    <div id ="dataExhibition" class="row">
+        <!--地图显示部分-->
+        <div id="dataMapExhibition" class="my-map"></div>
+        <!--统计图显示部分-->
+        <div id="dataNormalExhibition"></div>
+    </div>
+
 
     <!--文档显示部分-->
     <div id="Introduction">
