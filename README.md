@@ -1,11 +1,22 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.09 16 :59
+
+### modified by Miodeat
+
+1. 修复了ExecScript类的一些bug
+2. 添加了用于测试调用python脚本的线程类TestThread
+3. 添加了后端启动时自动运行的服务类InitService
+4. 添加了储存要执行的python脚本的路径与参数的配置文件(.js)
+5. 添加了用于测试python脚本调用的test.py文件
+6. TestThread类已经能成功调用python脚本了
+
 ## 2020.10.09 22:39
 
 ### modified by Miodeat
 
-1. 添加了后台执行脚本的抽象类
+1. 添加了后台执行脚本的抽象类ExecScript
 
 ## 2020.10.10
 

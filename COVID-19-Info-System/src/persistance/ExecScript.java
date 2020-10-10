@@ -1,43 +1,48 @@
 package persistance;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public abstract class ExecScript {
-    private String scriptPathsJsFile;
+    private String scriptPathsJsPath;
     private String scriptType;
+
+    public  ExecScript (String scriptPathsJsFile, String scriptType) {
+        this.scriptPathsJsPath = scriptPathsJsFile;
+        this.scriptType = scriptType;
+    }
 
     public Map<String, String> execScripts() {
         JSONObject scriptObj = this.readScriptPathsFromFile();
 
         Map<String, String> scriptOutputMap = new HashMap<>();
 
-        Iterator iter = scriptObj.entrySet().iterator();
+        if (scriptObj.isEmpty()) {
+            return scriptOutputMap;
+        }
+
+        Iterator<String> iter = scriptObj.keys();
         while (iter.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String paramsStr = entry.getValue().toString();
-            paramsStr = paramsStr.substring(1, paramsStr.length() - 1);
-            String[] paramsArr = paramsStr.split(",");
-            for (int i = 0; i < paramsArr.length; i++) {
-                paramsArr[i] = paramsArr[i].trim();
+            String key = iter.next();
+            JSONArray params = scriptObj.getJSONArray(key);
+            String[] paramsArr = new String[params.size()];
+            for (int i = 0; i < params.size(); i++) {
+                paramsArr[i] = params.get(i).toString();
             }
-            String path = entry.getKey().toString();
-            String scriptOutput = this.execScript(path, paramsArr);
-            scriptOutputMap.put(path, scriptOutput);
+            String scriptOutput = this.execScript(key, paramsArr);
+            scriptOutputMap.put(key, scriptOutput);
         }
 
         return scriptOutputMap;
     }
 
-    private String execScript(String path, String[] params) {
+    protected String execScript(String path, String[] params) {
         StringBuilder sb = new StringBuilder();
         try {
-            String[] runtimeParams = new String[params.length];
+            String[] runtimeParams = new String[params.length + 2];
             runtimeParams[0] = scriptType;
             runtimeParams[1] = path;
             for (int i = 0; i < params.length; i++) {
@@ -58,17 +63,21 @@ public abstract class ExecScript {
         return sb.toString();
     }
 
-    private JSONObject readScriptPathsFromFile () {
-        StringBuilder sb = readFile(this.scriptPathsJsFile);
+    protected JSONObject readScriptPathsFromFile () {
+        StringBuilder sb = readFile(this.scriptPathsJsPath);
+        if (sb.toString().equals("")) {
+            return new JSONObject();
+        }
         JSONObject scriptObj = JSONObject.fromObject(sb.toString());
         return scriptObj;
     }
 
-    private StringBuilder readFile(String path) {
+    public StringBuilder readFile(String path) {
         StringBuilder sb = new StringBuilder();
         File spFile = new File(path);
         if (!spFile.exists()) {
             System.err.println("Cannot find " + path);
+            return sb;
         }
 
         BufferedReader br = null;

@@ -48,4 +48,8 @@
         <servlet-name>InsertDataServlet</servlet-name>
         <url-pattern>/InsertDataServlet</url-pattern>
     </servlet-mapping>
+    
+    <listener>
+        <listener-class>services.InitService</listener-class>
+    </listener>
 </web-app>
