@@ -1,1 +1,0 @@
-{"driver": "org.postgresql.Driver", "user": "postgres", "password": "pj19980806", "basicdbUrl": "jdbc:postgresql://47.96.158.130/", "collectivenationalitydbUrl": "jdbc:postgresql://47.96.158.130/collectivenationaldb"}

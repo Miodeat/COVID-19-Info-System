@@ -13,7 +13,6 @@ public class epidemicService {
 
         dbOp = new dbOperationImp();
         try {
-//            System.out.println("helldsd");
             res =  dbOp.queryData(sql,dbName);
 //            System.out.println(res);
         } catch (Exception e) {
