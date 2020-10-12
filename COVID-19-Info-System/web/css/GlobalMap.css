@@ -1,8 +1,12 @@
-.myMap, #mapsContainer, #mapsTab {
+.myMap, #mapsContainer, #mapTabs {
     width: 100%;
 }
 
 #mapsContainer {
     background-color: #2a2a28;
-    height: 430px;
+    height: 94%;
+}
+
+#mapTabs {
+    height: 100%;
 }

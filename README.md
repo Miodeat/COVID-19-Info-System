@@ -1,6 +1,12 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.12 23:49
+
+### modified by Miodeat
+
+1. 将网页改为使用百分比高度进行显示
+
 ## 2020.10.12 33：04
 
 ### modified by Daisy
