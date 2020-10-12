@@ -1,6 +1,13 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.12 20:19
+
+### modified by Miodeat
+
+1. 修改了python脚本文件的存放位置
+2. 尝试兼容信息更新模块python脚本
+
 ## 2020.10.09 16 :59
 
 ### modified by Miodeat

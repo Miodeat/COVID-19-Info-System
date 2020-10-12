@@ -1,14 +1,13 @@
 package persistance;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class TestThread extends ExecScript implements Runnable {
+public class UpdateDataThread extends ExecScript implements Runnable {
     private Thread t;
 
-    public TestThread() {
-        super("E:\\地理信息系统开发实习\\COVID19InfoSystem\\COVID-19-Info-System\\src\\data\\scriptPaths.json",
+    public UpdateDataThread() {
+        super("E:\\地理信息系统开发实习\\COVID19InfoSystem\\COVID-19-Info-System\\src\\data\\updateDataScriptPaths.json",
                 "py");
     }
 
@@ -23,7 +22,7 @@ public class TestThread extends ExecScript implements Runnable {
                 System.out.println(entry.getKey() + " says: " + entry.getValue());
             }
             try {
-                TimeUnit.SECONDS.sleep(10);
+                TimeUnit.MINUTES.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
