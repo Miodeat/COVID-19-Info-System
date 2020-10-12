@@ -50,9 +50,15 @@ public abstract class ExecScript {
             }
             Process proc = Runtime.getRuntime().exec(runtimeParams);
             BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            BufferedReader errBr = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 
             String line = null;
             while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+            sb.append("\nerr:\n");
+            while ((line = errBr.readLine()) != null) {
                 sb.append(line);
             }
 
