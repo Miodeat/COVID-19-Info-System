@@ -57,8 +57,9 @@ public abstract class ExecScript {
                 sb.append(line);
             }
 
-            sb.append("\nerr:\n");
+            sb.append("\nerr:");
             while ((line = errBr.readLine()) != null) {
+                sb.append("\n");
                 sb.append(line);
             }
 

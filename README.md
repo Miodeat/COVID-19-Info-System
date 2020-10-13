@@ -1,6 +1,12 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.13 13:59
+
+### modified by Miodeat
+
+1.  完成疫情数据更新python脚本整合
+
 ## 2020.10.12 23:49
 
 ### modified by Miodeat

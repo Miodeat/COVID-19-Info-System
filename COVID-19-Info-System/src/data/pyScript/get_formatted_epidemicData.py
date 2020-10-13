@@ -52,7 +52,8 @@ def hebing_data(path,confirmed,death,recovered):
     if not os.path.exists(path):
         os.mkdir(path)
     else:
-        os.remove(uniformed_data)
+        if os.path.exists(uniformed_data):
+            os.remove(uniformed_data)
     confirmed.to_csv(uniformed_data, index=False, header=None)
     df = confirmed.sort_values("time",ascending=False)[0:253]
     df.to_csv(path+"\\lastedDayDate.csv",index=False,header = None)
@@ -74,7 +75,7 @@ def handleCanada(origin_data_path):
     handled_confirmed = getUniformData(confirmed,recovered_canada_4)
     path = sys.argv[2]
     if not os.path.exists(path):
-        os.mkdir(path)
+        os.makedirs(path)
         print(path+"创建成功")
 
     else:
@@ -123,11 +124,14 @@ def begin_download_epidemicData():
     death_path = origin_data_path + "\\death.csv"
     recovered_path = origin_data_path + "\\recovered.csv"
     if not os.path.exists(origin_data_path):
-        os.mkdir(origin_data_path)
+        os.makedirs(origin_data_path)
     else:
-        os.remove(confirmed_path)
-        os.remove(death_path)
-        os.remove(recovered_path)
+        if os.path.exists(confirmed_path):
+            os.remove(confirmed_path)
+        if os.path.exists(death_path):
+            os.remove(death_path)
+        if os.path.exists(recovered_path):
+            os.remove(recovered_path)
     get_latest_epidemic_data("time_series_covid19_confirmed_global.csv", confirmed_path)
     get_latest_epidemic_data("time_series_covid19_deaths_global.csv", death_path)
     get_latest_epidemic_data("time_series_covid19_recovered_global.csv", recovered_path)
