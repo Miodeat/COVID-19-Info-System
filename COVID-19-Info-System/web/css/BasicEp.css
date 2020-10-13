@@ -13,3 +13,8 @@
     width: 100%;
     height: 1px;
 }
+
+html, body, .container-fluid {
+    height: 100%;
+    margin: 0;
+}

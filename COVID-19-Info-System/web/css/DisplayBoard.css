@@ -2,12 +2,13 @@
     color: white;
     padding-left: 6%;
     padding-right: 6%;
+    height: 16%;
 }
 
 .display-board {
     background-color: #434343;
     width: 80%;
-    height: 150px;
+    height: 100%;
     margin: 3%;
     padding: 1% 6% 3%;
 }

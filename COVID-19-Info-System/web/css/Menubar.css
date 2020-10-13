@@ -2,12 +2,13 @@
     background-color: black;
 }
 
-#menubar, #logoTitle {
-    height: 45px;
+#menubar {
+    height: 6%;
 }
 
 #logoTitle {
     overflow: hidden;
+    height: 100%;
 }
 
 .CSU-logo, .CSU-name {
