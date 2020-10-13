@@ -13,5 +13,8 @@ IViewer.prototype.drawMap = function (div, data, dataProcessor) {
 };
 
 IViewer.prototype.convertData = function (data) {
-    console.log("Not support yet")
+    console.log("Not support yet");
+};
+IViewer.prototype.drawMapWithOps = function (div, ops) {
+    console.log("Not support yet");
 };

@@ -1,6 +1,12 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.13 15：02
+
+### modified by Daisy
+
+1. 将需要更新的疫情数据的文件路径作为参数传给了函数。
+
 ## 2020.10.13 13:59
 
 ### modified by Miodeat
@@ -8,12 +14,12 @@
 1.  完成疫情数据更新python脚本整合
 
 ## 2020.10.12 23:49
-
 ### modified by Miodeat
 
 1. 将网页改为使用百分比高度进行显示
 
-## 2020.10.12 33：04
+
+## 2020.10.12  22：04
 
 ### modified by Daisy
 
@@ -21,6 +27,10 @@
 2. 删除了无用的service和servlet
 3. 加入get_formatted_epidemicData.py（放在scriptPath），用于更新疫情数据，调用方式为py/python xxx.py argv[1] argv[2]，这两个参数已经写入json文件
 
+  <<<<<<< HEAD
+  =======
+
+>>>>>>> a0d70a909d9e17bc02b3b0fdc03188821322e490
 ## 2020.10.12 20:19
 
 ### modified by Miodeat
@@ -28,6 +38,10 @@
 1. 修改了python脚本文件的存放位置
 2. 尝试兼容信息更新模块python脚本
 
+  <<<<<<< HEAD
+  =======
+
+>>>>>>> a0d70a909d9e17bc02b3b0fdc03188821322e490
 ## 2020.10.09 16 :59
 
 ### modified by Miodeat

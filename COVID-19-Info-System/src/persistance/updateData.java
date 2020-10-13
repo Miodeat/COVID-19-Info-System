@@ -17,14 +17,14 @@ public class updateData {
 
     //更新疫情数据的接口，当你执行完更新疫情数据的py文件后，调用此函数
     //返回的数据格式 {"res":"true"} true表示更新成功，false表示更新失败
-    public JSONObject insertEpidemicData() throws IOException {
+    public JSONObject insertEpidemicData(String fileName) throws IOException {
         JSONObject res = new JSONObject();
         JSONArray array = new JSONArray();
 
         String dbName = "basicdb";
         String sql = "insert into epidemic_data(province,country,lon,lat,update_time,confirmed,death,recovered)" +
                 "values(?,?,?,?,?,?,?,?)";
-        array = setInsertEpidemicData();
+        array = setInsertEpidemicData(fileName);
         dbOp = new dbOperationImp();
         try {
             res = dbOp.insertData(array,sql,dbName);
@@ -43,10 +43,10 @@ public class updateData {
         return res;
     }
 
-    private JSONArray setInsertEpidemicData() throws IOException {
+    private JSONArray setInsertEpidemicData(String fileName) throws IOException {
         //这里的文件路径需要设置一下，其实就是handle_epidemic_data文件下的lastedDayDate.csv
         BufferedReader reader = new BufferedReader(new FileReader(
-                "D:\\Projects\\COVID-19-Info-System\\src\\data\\epidemic\\origin_data\\lastedDayDate.csv"));
+                fileName));
         String line = null;
         int index =0;
         String dbName = "basicdb";
