@@ -56,6 +56,8 @@ def hebing_data(path,confirmed,death,recovered):
     confirmed.to_csv(uniformed_data, index=False, header=None)
     df = confirmed.sort_values("time",ascending=False)[0:253]
     df.to_csv(path+"\\lastedDayDate.csv",index=False,header = None)
+    returnedFileName = path+"\\lastedDayDate.csv"
+    print(returnedFileName)
     # confirmed.to_csv(uniformed_data,index=False,header=None)
 
 
