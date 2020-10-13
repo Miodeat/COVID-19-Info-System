@@ -21,7 +21,7 @@ public class getCollectiveRationalityInfoServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         collectiveRationality_Service = new collectiveRationalityService();
-        String Sql = "select country,update_time,rationality from collective_rationality ";
+        String Sql = "select country,update_time,rationality,from_time,to_time from collective_rationality ";
         String dbName = "collectiverationaldb";
         JSONObject res = collectiveRationality_Service.getCollectiveRationalityInfo(Sql,dbName);
         System.out.println(res);
