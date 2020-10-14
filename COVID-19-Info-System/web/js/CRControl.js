@@ -31,31 +31,34 @@ $(document).ready(function () {
         "shareIconDiv": "shareIcon",
         "titleDiv": "title",
 
-        //@TODO:Statistic and Map
-        "mapDiv":"dataMapExhibition",
-
-        "textControlObj":{
-            "container":"Introduction",
-            "titleDiv":"textTitle",
-            "titleText":"A model of collective rational assessment based on internal group dynamics",
-            "textInfoDiv":"textInfo",
-            "timeDiv":"textTime",
-            "textTime":"27 September",
-            "authorDiv":"textAuthor",
-            "textAuthor":"The Victory of Budweiser Group, Centre South University",
-            "previewImgDiv":"previewImg",
-            "previewImg":"html/icon/模型示意图.png",
-            "textBodyDiv":"textBody",
-            "textBody":"html/markdown/CollectiveRationality.md"
+        "mapDiv": "dataMapExhibition",
+        "statDiv": {
+            "barDiv": "countryCompare",
+            "lineDiv": "countryItself",
         },
 
-        "crmapObj":{
-            "mapTabDiv":"dataMapExhibition",
-            "tabs":[
+        "textControlObj": {
+            "container": "Introduction",
+            "titleDiv": "textTitle",
+            "titleText": "A model of collective rational assessment based on internal group dynamics",
+            "textInfoDiv": "textInfo",
+            "timeDiv": "textTime",
+            "textTime": "27 September",
+            "authorDiv": "textAuthor",
+            "textAuthor": "The Victory of Budweiser Group, Centre South University",
+            "previewImgDiv": "previewImg",
+            "previewImg": "html/icon/模型示意图.png",
+            "textBodyDiv": "textBody",
+            "textBody": "html/markdown/CollectiveRationality.md"
+        },
+
+        "crmapObj": {
+            "mapTabDiv": "dataMapExhibition",
+            "tabs": [
                 {
-                    "href":"#rationalityMap",
-                    "active":true,
-                    "text":"Rationality"
+                    "href": "#rationalityMap",
+                    "active": true,
+                    "text": "Rationality"
                 }
             ]
         }
@@ -118,24 +121,21 @@ CRControl.prototype._init = function () {
     $("<h1>").appendTo(titleDiv)
         .text("COVID19 COLLECTIVE RATIONALITY");
 
-    // create MapBox
-
-
+    // create MapBox and Statistic
     $.ajax({
-        "type":"POST",
-        "url":"/COVID_19_Info_System/getCollectiveRationalityInfoServlet",
-        "data":{},
-        "success":function (res) {
-            let json =JSON.parse(res);
+        "type": "POST",
+        "url": "/COVID_19_Info_System/getCollectiveRationalityInfoServlet",
+        "data": {},
+        "success": function (res) {
+            let json = JSON.parse(res);
             // let countryCRObj = json.total;
-            me._initMap(me.options.mapDiv,json)
+            me._initMap(me.options.mapDiv, json);
+            me._initStat(me.options.statDiv, json);
         },
-        "err":function (err) {
+        "err": function (err) {
             console.log(err)
         }
     })
-
-    //create Statistic
 
     //create Text
     // let textControl = new TextControl(me.options.textControlObj)
@@ -160,16 +160,55 @@ CRControl.prototype._initMenu = function () {
 
 };
 
-CRControl.prototype._initText = function () {
+CRControl.prototype._initMap = function (div, data) {
     let me = this;
-    //let textControl = new TextControl(me.options.textControlObj);
-};
+    // console.log(data);
+    let crmapcontrol = new CRmapControl(div, data);
 
-CRControl.prototype._initMap = function(div,data){
-    let me =this;
-    let crmapcontrol = new CRmapControl(div,data);
     // let crmapTabControl = new MapsTabControl();
     // crmapTabControl.createTabs(me.options.crmapObj.mapTabDiv,me.options.crmapObj.tabs);
 }
 
+CRControl.prototype._initStat = function (div, data) {
+    let me = this;
+    // me._initSelector();
+    let echartviewer = new EChartViewer();
+    let crtimedataprocessor = new CRTimeDataProcessor(data);
 
+    let X = crtimedataprocessor.getTime(data);
+
+    // let da= crtimedataprocessor.getGoodData(data);
+    echartviewer.drawStatistic(div.barDiv, 'timebar', 600, 300,X ,data );
+
+
+    echartviewer.drawStatistic(div.lineDiv, 'multiline', 600, 200, X , data);
+
+
+}
+
+// CRControl.prototype._initSelector= function(div, time , selectTime){
+//     let me = this;
+//     let timeSelect = $("#"+div);
+//     time.forEach((item)=>{
+//        let option = $("<option>").appendTo(timeSelect)
+//            .attr({
+//                "value":item
+//            })
+//            .text(item);
+//        if(item == selectTime){
+//            option.attr({
+//                "selected":true
+//            });
+//        }
+//     });
+//
+//     timeSelect.on("change", ev=>{
+//        let time = $("#"+me.options).val();
+//        let opsArr = [ me.]
+//     });
+// };
+
+CRControl.prototype._initText = function () {
+    let me = this;
+    let textControl = new TextControl(me.options.textControlObj);
+};

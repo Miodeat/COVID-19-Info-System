@@ -5,7 +5,8 @@ EChartViewer = function () {
 };
 
 (function () {
-    let tmp = function () {};
+    let tmp = function () {
+    };
     tmp.prototype = IViewer.prototype;
     EChartViewer.prototype = new tmp();
 })();
@@ -130,12 +131,48 @@ EChartViewer.prototype.drawStatistic = function (div, type,
         case "bar":
             options = me.drawBar(X, Y);
             break;
+        case "line":
+            options = me.drawLine(X, Y);
+            break;
+        case "multiline":
+            options = me.drawMultiLine(X, Y);
+            break;
+
+        case "timebar":
+            options = me.drawTimeBar(X, Y);
+            break;
     }
 
     stChart.setOption(options);
     return {"chart": stChart, "options": options};
 };
 
+EChartViewer.prototype.drawTimeBar = function (X, data) {
+    let crtdp = new CRTimeDataProcessor();
+    let opt = {
+        baseOption: {
+            timeline: {
+                axisType: 'category',
+                autoPlay: true,
+                playInterval: 3000,
+                y: 630,
+            },
+            "grid": {
+                "containLabel": true,
+                "top": "10%",
+                "bottom": "10%",
+                "left": "2%",
+                "right": "2%"
+            },
+
+        }
+    };
+
+    opt["options"] = crtdp.getTimeBarOption(data);
+
+    console.log(opt);
+    return opt;
+};
 
 EChartViewer.prototype.drawBar = function (X, Y) {
     let ops = {
@@ -155,7 +192,7 @@ EChartViewer.prototype.drawBar = function (X, Y) {
             {
                 "type": "bar",
                 "itemStyle": {
-                    "color": "#fea900"
+                    "color": "#fe9800"
                 },
                 "data": Y
             }
@@ -167,6 +204,60 @@ EChartViewer.prototype.drawBar = function (X, Y) {
 
     return ops;
 };
+
+
+EChartViewer.prototype.drawLine = function (X, Y) {
+
+    let options = {
+        grid: {
+            "containLabel": true,
+            "top": "10%",
+            "bottom": "10%",
+            "left": "2%",
+            "right": "2%"
+        },
+        xAxis: {
+            data: X
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: Y,
+            type: 'line'
+        }]
+    };
+    return options;
+};
+
+
+EChartViewer.prototype.drawMultiLine = function (X, data) {
+    let crtdp = new CRTimeDataProcessor(data);
+    let seriesopt = crtdp.getMultiLineOption(data);
+    let legend = crtdp.get
+    let options = {
+        grid: {
+            "containLabel": true,
+            "top": "10%",
+            "bottom": "10%",
+            "left": "2%",
+            "right": "2%"
+        },
+        xAxis: {
+            data: X
+        },
+        legend: {
+            data: seriesopt['legend']
+        },
+        yAxis: {
+            type: 'value'
+        }
+    };
+    options['series'] = seriesopt['series'];
+
+    return options;
+}
+
 
 EChartViewer.prototype.drawMapWithOps = function (div, ops) {
     let mapChart = echarts.init(document.getElementById(div));

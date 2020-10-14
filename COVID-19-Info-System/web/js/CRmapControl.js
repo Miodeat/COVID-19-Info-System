@@ -5,8 +5,9 @@ CRmapControl = function (div, data) {
 
 CRmapControl.prototype.drawMap = function (div, data) {
     let me = this;
-    let formData = me.setData(data);
-    let option = me.getOption(formData);
+    let timeDataProcessor = new CRTimeDataProcessor(data);
+    let formData = timeDataProcessor.setData(data);
+    let option = timeDataProcessor.getOption(formData);
     let myoption = {
         baseOption: {
             timeline: {
@@ -14,18 +15,7 @@ CRmapControl.prototype.drawMap = function (div, data) {
                 autoPlay: true,
                 playInterval: 3000,
                 y: 630,
-                data : (function(){
-                    var a = [];
-                    for (var i = 2009; i <= 2019; i++) {
-                        a.push( i + '-01-01');
-                    }
-                    return a;
-                })(),
-                label: {
-                    formatter : function(s) {
-                        return (new Date(s)).getFullYear();
-                    }
-                }
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
             },
             title: {
                 text: 'Word Country Rationality',
@@ -49,9 +39,9 @@ CRmapControl.prototype.drawMap = function (div, data) {
             },
             toolbox: {
                 show: true,
-                orient: 'vertical',
-                left: 'right',
-                top: 'center',
+                // orient: 'vertical',
+                // left: 'right',
+                // top: 'bottom',
                 feature: {
                     mark: {show: true},
                     dataView: {show: true, readOnly: false},
@@ -67,7 +57,7 @@ CRmapControl.prototype.drawMap = function (div, data) {
                     roam: true,
                     itemStyle: {
                         normal: {
-                           color: 'rgb(0,0,0)',//默认的地图板块
+                            color: 'rgb(0,0,0)',//默认的地图板块
                             borderColor: 'rgba(255,255,255,0.5)',
                             borderWidth: 1
                         },
@@ -86,7 +76,7 @@ CRmapControl.prototype.drawMap = function (div, data) {
     };
 
     myoption["options"] = option;
-    console.log(myoption);
+
     let dom = document.getElementById(div);
     let myChart = echarts.init(dom);
     if (myoption && typeof myoption === "object") {
@@ -96,83 +86,6 @@ CRmapControl.prototype.drawMap = function (div, data) {
 }
 
 
-//option
-CRmapControl.prototype.getOption = function (obj) {
-    let option = [];
-    obj.forEach((item, index) => {
-        let current = {
-            title: {'text': 'WEEK' + index.toString()},
-            series: [
-                {'data': item}
-            ]
-        };
 
-        option[index - 1] = current;
-    })
-    return option;
-}
-
-CRmapControl.prototype.setData = function (data) {
-    let me = this;
-    let time_period = 0;
-    let length = 0;
-
-    data["res"].forEach((item, index) => {
-        if (Number(item.update_time) > Number(time_period)) {
-            time_period = Number(item.update_time);
-        }
-        length += 1;
-    })
-
-    //get CollectiveRationality AND country name(divide by time)
-    let cr = new Array();
-    let co = new Array();
-    let dataCR = new Array();
-    let dataCountry = new Array();
-    for (let i = 1; i < Number(time_period); i++) {
-        data["res"].forEach((item, index) => {
-            if (item.update_time == i) {
-                cr.push(item.rationality);
-                co.push(item.country);
-            }
-        })
-        dataCR[i] = cr;
-        dataCountry[i] = co;
-        co = [];
-        cr = [];
-
-    }
-    ;
-
-    //get formal data
-    let obj = me.dataFormatter(dataCR, dataCountry);
-
-    return obj;
-}
-
-
-//转换后的数据
-CRmapControl.prototype.dataFormatter = function (obj, pList) {
-    let temp;
-    let max = 0;
-    for (let time = 1; time <= obj.length; time++) {
-        temp = obj[time]
-        if (temp != null) {
-            for (let i = 0, l = temp.length; i < l; i++) {
-                max = Math.max(max, temp[i]);
-                obj[time][i] = {
-                    // time[i] = {
-                    name: pList[time][i],
-                    value: temp[i]
-                }
-            }
-            ;
-            obj[time + 'max'] = Math.floor(max / 100) * 100;
-
-        }
-    }
-    // console.log(obj);
-    return obj;
-}
 
 
