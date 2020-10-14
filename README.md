@@ -5,8 +5,13 @@
 
 ### modified by dinghy
 
-攒了很久改了了很多！！！！！！CR
-未完成：bar的时间轴展示
+1. 添加了echartviwer的timebar和multiline方法，
+2. 支持时间播放，
+3. 修改crmapcontrol
+4. 支持任意数量国家数据读取
+5. 界面改善
+我上一次push啥时候来着有没有说markdown也是路径读取了？啊啊啊啊啊快结束实习吧
+未完善：bar的时间轴展示，绝对时间
 （push也惊悚不push也惊悚！！！！！啊啊啊啊啊啊啊啊啊啊啊啊啊救命
 
 ## 2020.10.14 9：37
