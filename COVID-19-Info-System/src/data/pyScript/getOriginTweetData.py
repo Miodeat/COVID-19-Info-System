@@ -42,28 +42,28 @@ access_token_secret = "0tIMUBEeurg9Qmd6e076SLoSbMK7opLaWaorkhpqa4Tn1"
 t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
 
 # 这个是5个需要传进来的三个路径
-# tweet_folder = sys.argv[1]
-# last_week_folder = sys.argv[2]
-# this_week_folder = sys.argv[3]
-# news_path = sys.argv[4]
-# result_path = sys.argv[5]
-tweet_folder = "tweet_folder"
-last_week_folder = "last_week_folder"
-this_week_folder = "this_week_folder"
-news_path = r"../COVID19下集体理性量化分析与思考/数据/recovery-news-data.csv"
-result_path = "collective_rationalty"
+tweet_folder = sys.argv[1]
+last_week_folder = sys.argv[2]
+this_week_folder = sys.argv[3]
+news_path = sys.argv[4]
+result_path = sys.argv[5]
+# tweet_folder = "tweet_folder"
+# last_week_folder = "last_week_folder"
+# this_week_folder = "this_week_folder"
+# news_path = r"../COVID19下集体理性量化分析与思考/数据/recovery-news-data.csv"
+# result_path = "collective_rationalty"
 
 
 # 用于判断是否存在存储tweet数据的文件夹,不存在则创建
 def makedir():
     if not os.path.exists(tweet_folder):
-        os.mkdir(tweet_folder)
+        os.makedirs(tweet_folder)
     if not os.path.exists(last_week_folder):
-        os.mkdir(last_week_folder)
+        os.makedirs(last_week_folder)
     if not os.path.exists(this_week_folder):
-        os.mkdir(this_week_folder)
+        os.makedirs(this_week_folder)
     if not os.path.exists(result_path):
-        os.mkdir(result_path)
+        os.makedirs(result_path)
 
 
 def save_data(data, filename):
@@ -83,7 +83,7 @@ def save_data(data, filename):
         movefiles(this_week_folder,last_week_folder)
         return [True,result_to_calculate_collectiveRationality_path]
     else:
-        print("直接保存结果")
+        # print("直接保存结果")
         data.to_csv(this_week_folder + "\\" + filename)
         return [False,'no']
 
