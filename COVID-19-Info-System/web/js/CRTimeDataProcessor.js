@@ -6,7 +6,14 @@ CRTimeDataProcessor.constructor = function () {
 
 };
 
+//这里一共是三条线：
+//第一条线：Map：需要将原始的data->待formatter的data->formatter后的data->地图的options
+//第二条线：multiline 就是数据处理，返回options
+//第三条线：timebar 数据处理，返回options，返回series。
+//注意，这里的options和option不同，options是option内控制时间轴的选项
 
+
+// 返回待formatter处理的数据格式
 CRTimeDataProcessor.prototype.getGoodData = function (data) {
     let me = this;
     let time_period = 0;
@@ -41,8 +48,10 @@ CRTimeDataProcessor.prototype.getGoodData = function (data) {
 
     return obj;
 }
-CRTimeDataProcessor.prototype.afterDate = function (date, n) {
 
+
+// 返回在date后n天的时间
+CRTimeDataProcessor.prototype.afterDate = function (date, n) {
 
     let mTimes = new Date(date);
     let endTimes = mTimes.valueOf() + n * 24 * 60 * 60 * 1000;
@@ -50,14 +59,15 @@ CRTimeDataProcessor.prototype.afterDate = function (date, n) {
     return endDate.getFullYear() + "/" + (endDate.getMonth() + 1) + "/" + endDate.getDate();
 }
 
-//option
+
+// 通过处理好的数据，获取地图的option
 CRTimeDataProcessor.prototype.getOption = function (obj) {
     let me = this;
     let option = [];
     let beginday = new Date("2020-03-21");
     obj.forEach((item, index) => {
         let current = {
-            title: {'text': me.afterDate(beginday, (index - 1) * 7) + "~" + me.afterDate(beginday, (index + 1) * 7)},
+            title: {'text':"Week"+ str(index)+ me.afterDate(beginday, (index) * 7) + "~" + me.afterDate(beginday, (index + 1) * 7)},
             series: [
                 {'data': item}
             ]
@@ -68,6 +78,7 @@ CRTimeDataProcessor.prototype.getOption = function (obj) {
     return option;
 };
 
+// 获得选择国家所有时间的理性值
 CRTimeDataProcessor.prototype.getCountryData = function (country, data) {
     let me = this;
     let cr = [];
@@ -82,11 +93,11 @@ CRTimeDataProcessor.prototype.getCountryData = function (country, data) {
         update_time: time,
         rationality: cr
     }
-
     return obj;
 };
 
 
+// 相当于一个总调用的，输入基础数据，返回获得opt的好数据
 CRTimeDataProcessor.prototype.setData = function (data) {
     let me = this;
     let da = me.getGoodData(data);
@@ -97,7 +108,7 @@ CRTimeDataProcessor.prototype.setData = function (data) {
 }
 
 
-//转换后的数据
+// 转换数据（good->完全好的）
 CRTimeDataProcessor.prototype.dataFormatter = function (obj, pList) {
     let temp;
     let max = 0;
@@ -120,7 +131,7 @@ CRTimeDataProcessor.prototype.dataFormatter = function (obj, pList) {
     return obj;
 }
 
-
+// 获得所有国家的名字
 CRTimeDataProcessor.prototype.getCountryName = function (data) {
     let me = this;
     let cname = [];
@@ -131,6 +142,7 @@ CRTimeDataProcessor.prototype.getCountryName = function (data) {
     return cname
 }
 
+// 获得线段统计图的option
 CRTimeDataProcessor.prototype.getMultiLineOption = function (data) {
     let me = this;
     let cname = me.getCountryName(data);
@@ -156,7 +168,7 @@ CRTimeDataProcessor.prototype.getMultiLineOption = function (data) {
     return mlp;
 };
 
-
+// 获得时间序列[1,2,3.....]
 CRTimeDataProcessor.prototype.getTime = function (data) {
     let time = [];
     data['res'].forEach((items) => {
@@ -166,6 +178,18 @@ CRTimeDataProcessor.prototype.getTime = function (data) {
     return Array.from(new Set(time));
 };
 
+// 获得时间序列的文字标识[week1,week2,.....]
+CRTimeDataProcessor.prototype.getTimeText = function (data) {
+    let time = [];
+    data['res'].forEach((items) => {
+        time.push('week'+items.update_time);
+    });
+
+    return Array.from(new Set(time));
+};
+
+
+// 获得变化时间的option
 CRTimeDataProcessor.prototype.getTimeBarOption = function (data) {
     let me = this;
     let options = [];
@@ -192,7 +216,7 @@ CRTimeDataProcessor.prototype.getTimeBarOption = function (data) {
             series: [
                 {
                     'data': oneTimeData,
-                    'barWidth':100
+                    'barWidth': 100
                 }
             ]
         };
@@ -206,6 +230,7 @@ CRTimeDataProcessor.prototype.getTimeBarOption = function (data) {
     // cname = Array.from(new Set(cname));
 }
 
+// 帮助timebar获取series
 CRTimeDataProcessor.prototype.getCountryTypeOption = function (data) {
     let me = this;
     let cname = me.getCountryName(data);

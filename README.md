@@ -1,6 +1,18 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.14 20：46
+
+### modified by dinghye
+1. 添加crtimedataprocessor的注释
+    这里一共是三条线：
+    第一条线：Map：需要将原始的data->待formatter的data->formatter后的data->地图的options
+    第二条线：multiline 就是数据处理，返回options
+    第三条线：timebar 数据处理，返回options，返回series。
+    注意，这里的options和option不同，options是option内控制时间轴的选项
+2. 完整输出，把1改成week1，添加标题注释
+3. 完整输出，修改week的范围（由14天变成连续不相交的7天）
+
 ## 2020.10.14 19:10
 
 ### modified by Dinghye

@@ -20,8 +20,7 @@ CRmapControl.prototype.drawMap = function (div, data) {
                 playInterval: 3000,
                 y: 1000,
                 //@TODO:修改
-                data: timeDataProcessor.getTime(data)
-
+                data: timeDataProcessor.getTimeText(data)
             },
             title: {
                 text: 'Word Country Rationality',
