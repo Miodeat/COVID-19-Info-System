@@ -157,7 +157,7 @@ EChartViewer.prototype.drawTimeBar = function (X, data) {
                 axisType: 'category',
                 autoPlay: false,
                 playInterval: 3000,
-                data: me.getTimeText(data)
+                data: crtdp.getTimeText(data)
             },
             xAxis: {
                 type: 'category',
@@ -176,7 +176,7 @@ EChartViewer.prototype.drawTimeBar = function (X, data) {
             series: [{
                 name: 'cr',
                 type: 'bar',
-                barMaxWidth: 30
+
             }]
         }
     };

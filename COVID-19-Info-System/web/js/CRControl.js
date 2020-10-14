@@ -176,10 +176,10 @@ CRControl.prototype._initStat = function (div, data) {
     let crtimedataprocessor = new CRTimeDataProcessor(data);
 
     let coname = crtimedataprocessor.getCountryName(data);
-    echartviewer.drawStatistic(div.barDiv, 'timebar', 600, 350,coname ,data);
+    echartviewer.drawStatistic(div.barDiv, 'timebar', 500, 300,coname ,data);
 
     let X = crtimedataprocessor.getTime(data);
-    echartviewer.drawStatistic(div.lineDiv, 'multiline', 600, 200, X , data);
+    echartviewer.drawStatistic(div.lineDiv, 'multiline', 500, 250, X , data);
 
 
 }

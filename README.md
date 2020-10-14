@@ -1,6 +1,12 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.14 20:46
+
+### modified by dinghye
+重要！修改了小问题！
+
+
 ## 2020.10.14 20：46
 
 ### modified by dinghye

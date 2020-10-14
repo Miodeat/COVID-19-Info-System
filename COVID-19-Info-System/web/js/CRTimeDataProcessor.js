@@ -56,7 +56,7 @@ CRTimeDataProcessor.prototype.afterDate = function (date, n) {
     let mTimes = new Date(date);
     let endTimes = mTimes.valueOf() + n * 24 * 60 * 60 * 1000;
     let endDate = new Date(endTimes);
-    return endDate.getFullYear() + "/" + (endDate.getMonth() + 1) + "/" + endDate.getDate();
+    return endDate.getFullYear() + "-" + (endDate.getMonth() + 1) + "-" + endDate.getDate();
 }
 
 
@@ -66,8 +66,9 @@ CRTimeDataProcessor.prototype.getOption = function (obj) {
     let option = [];
     let beginday = new Date("2020-03-21");
     obj.forEach((item, index) => {
+        let name = 'Week' + index+": "+ me.afterDate(beginday, (index) * 7) + "~" + me.afterDate(beginday, (index + 1) * 7);
         let current = {
-            title: {'text':"Week"+ str(index)+ me.afterDate(beginday, (index) * 7) + "~" + me.afterDate(beginday, (index + 1) * 7)},
+            title: {'text':name},
             series: [
                 {'data': item}
             ]
