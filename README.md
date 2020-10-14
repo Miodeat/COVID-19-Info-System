@@ -1,6 +1,13 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+## 2020.10.14 19:10
+
+### modified by Dinghye
+1. 修复动态轴
+2. 支持绝对日期时间展示
+3. 调整布局
+
 ## 2020.10.14 11:14
 
 ### modified by desperatedinghy

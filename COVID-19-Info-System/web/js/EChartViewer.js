@@ -149,27 +149,39 @@ EChartViewer.prototype.drawStatistic = function (div, type,
 
 EChartViewer.prototype.drawTimeBar = function (X, data) {
     let crtdp = new CRTimeDataProcessor();
+    console.log(X)
     let opt = {
         baseOption: {
             timeline: {
                 axisType: 'category',
-                autoPlay: true,
+                autoPlay: false,
                 playInterval: 3000,
-                y: 630,
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
             },
-            "grid": {
-                "containLabel": true,
-                "top": "10%",
-                "bottom": "10%",
-                "left": "2%",
-                "right": "2%"
+            xAxis: {
+                type: 'category',
+                data: X
             },
-
+            yAxis: {
+                type: 'value'
+            },
+            grid: {
+                containLabel: true,
+                top: "10%",
+                bottom: "10%",
+                left: "2%",
+                right: "2%"
+            },
+            series: [{
+                name: 'cr',
+                type: 'bar',
+                barMaxWidth: 30
+            }]
         }
     };
 
     opt["options"] = crtdp.getTimeBarOption(data);
-
+    opt["baseOption"]["series"] = crtdp.getCountryTypeOption(data);
     console.log(opt);
     return opt;
 };
@@ -247,7 +259,8 @@ EChartViewer.prototype.drawMultiLine = function (X, data) {
             data: X
         },
         legend: {
-            data: seriesopt['legend']
+            data: seriesopt['legend'],
+            y:'bottom'
         },
         yAxis: {
             type: 'value'

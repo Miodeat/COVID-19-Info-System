@@ -41,13 +41,23 @@ CRTimeDataProcessor.prototype.getGoodData = function (data) {
 
     return obj;
 }
+CRTimeDataProcessor.prototype.afterDate = function (date, n) {
+
+
+    let mTimes = new Date(date);
+    let endTimes = mTimes.valueOf() + n * 24 * 60 * 60 * 1000;
+    let endDate = new Date(endTimes);
+    return endDate.getFullYear() + "/" + (endDate.getMonth() + 1) + "/" + endDate.getDate();
+}
 
 //option
 CRTimeDataProcessor.prototype.getOption = function (obj) {
+    let me = this;
     let option = [];
+    let beginday = new Date("2020-03-21");
     obj.forEach((item, index) => {
         let current = {
-            title: {'text': 'WEEK' + index.toString()},
+            title: {'text': me.afterDate(beginday, (index - 1) * 7) + "~" + me.afterDate(beginday, (index + 1) * 7)},
             series: [
                 {'data': item}
             ]
@@ -82,6 +92,7 @@ CRTimeDataProcessor.prototype.setData = function (data) {
     let da = me.getGoodData(data);
     //get formal data
     let obj = me.dataFormatter(da["dataCR"], da["dataCountry"]);
+
     return obj;
 }
 
@@ -110,13 +121,19 @@ CRTimeDataProcessor.prototype.dataFormatter = function (obj, pList) {
 }
 
 
-CRTimeDataProcessor.prototype.getMultiLineOption = function (data) {
+CRTimeDataProcessor.prototype.getCountryName = function (data) {
     let me = this;
     let cname = [];
     data["res"].forEach((item, index) => {
         cname.push(item.country);
     });
     cname = Array.from(new Set(cname));
+    return cname
+}
+
+CRTimeDataProcessor.prototype.getMultiLineOption = function (data) {
+    let me = this;
+    let cname = me.getCountryName(data);
 
     let mlp = [];
     let series = [];
@@ -159,29 +176,47 @@ CRTimeDataProcessor.prototype.getTimeBarOption = function (data) {
         data["res"].forEach((item, index) => {
             // console.log(item.update_time);
             if (item.update_time == i) {
-                let temp = {
-                    name: item.country,
-                    value: item.rationality
-                }
+                // let temp = {
+                //     name: item.country,
+                //     value: item.rationality
+                // }
 
-                oneTimeData.push(temp);
+                // oneTimeData.push(temp);
+                oneTimeData.push(item.rationality)
             }
-            // console.log(index)
-
-            let currentopt = {
-                title: {'text': 'WEEK' + index.toString()},
-                series: [
-                    {'data': oneTimeData}
-                ]
-            };
-            options.push(currentopt);
         });
+        // console.log(index)
+
+        let currentopt = {
+            // title: {'text': 'WEEK' + i.toString()},
+            series: [
+                {
+                    'data': oneTimeData,
+                    'barWidth':100
+                }
+            ]
+        };
+        options.push(currentopt);
+
 
     }
 
     console.log(options);
     return options;
     // cname = Array.from(new Set(cname));
+}
 
+CRTimeDataProcessor.prototype.getCountryTypeOption = function (data) {
+    let me = this;
+    let cname = me.getCountryName(data);
+    let opt = [];
+    cname.forEach((name) => {
+        let temp = {
+            name: name,
+            type: 'bar'
+        };
+        opt.push(temp);
+    });
+    return opt;
 
 }
