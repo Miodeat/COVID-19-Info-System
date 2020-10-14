@@ -5,7 +5,7 @@
 
 ### modified by dinghy
 
-1. 添加了echartviwer的timebar和multiline方法，
+1. 添加了echartviwer的timebar和multiline方法
 2. 支持时间播放，
 3. 修改crmapcontrol
 4. 支持任意数量国家数据读取
