@@ -1,6 +1,6 @@
 package services;
 
-import persistance.UpdateDataThread;
+import persistance.UpdateEpDataThread;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -14,7 +14,7 @@ public class InitService implements ServletContextListener {
 
     @Override
     public void contextInitialized (ServletContextEvent contextEvent) {
-        UpdateDataThread testT = new UpdateDataThread();
+        UpdateEpDataThread testT = new UpdateEpDataThread();
         testT.start();
     }
 }
