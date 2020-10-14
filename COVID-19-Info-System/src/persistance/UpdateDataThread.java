@@ -7,7 +7,7 @@ public class UpdateDataThread extends ExecScript implements Runnable {
     private Thread t;
 
     public UpdateDataThread() {
-        super("E:\\地理信息系统开发实习\\COVID19InfoSystem\\COVID-19-Info-System\\src\\data\\updateDataScriptPaths.json",
+        super("D:\\COVIDInfoSystem\\COVID-19-Info-System\\src\\data\\updateDataScriptPaths.json",
                 "py");
     }
 
