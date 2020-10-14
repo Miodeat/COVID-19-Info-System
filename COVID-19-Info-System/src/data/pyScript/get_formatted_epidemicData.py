@@ -78,10 +78,7 @@ def handleCanada(origin_data_path):
     path = sys.argv[2]
     if not os.path.exists(path):
         os.makedirs(path)
-        print(path+"创建成功")
 
-    else:
-        print(path+"已存在，将判断并保存处理后的结果")
     saveData(path, handled_death, "death")
     saveData(path, recovered, "recovered")
     saveData(path,handled_confirmed,"confirmed")
@@ -141,8 +138,6 @@ def begin_download_epidemicData():
     return origin_data_path
 
 if __name__=="__main__":
-    print(sys.argv[1])
-    print(sys.argv[2])
 
     # 下载最新的疫情数据
     origin_data_path = begin_download_epidemicData()
