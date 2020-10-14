@@ -72,13 +72,13 @@ def save_data(data, filename):
     if isCalculated:
         # 转去计算
         read_origin_data(this_week_folder)
-        print("地理位置、时间处理完毕，开始合并last_week and this_week")
+        # print("地理位置、时间处理完毕，开始合并last_week and this_week")
         hebing_handled_data()
-        print("开始训练,真假标签分类......")
+        # print("开始训练,真假标签分类......")
         all_result_path = test_Classifcation_Models.beigin(result_path,news_path)
-        print("分类完成,开始计算tweet的转发量......")
+        # print("分类完成,开始计算tweet的转发量......")
         result_to_calculate_collectiveRationality_path = get_retweet.start(result_path)
-        print("计算完成，开始移动文件")
+        # print("计算完成，开始移动文件")
         movefiles(last_week_folder,tweet_folder)
         movefiles(this_week_folder,last_week_folder)
         return [True,result_to_calculate_collectiveRationality_path]
@@ -103,7 +103,6 @@ def hebing_handled_data():
 def movefiles(src, dst):
     filelist = os.listdir(src)
     for file in filelist:
-        print(file)
         src_full = src + "\\" + file
         shutil.move(src_full, dst)
 
@@ -151,13 +150,12 @@ def get_csv():
 def read_origin_data(path):
     files = os.listdir(path)
     for file in files:
-        print(file)
         if not os.path.isdir(file):
             try:
                 df = pd.read_csv(path + '\\' + file, header=None)[0]
                 get_tweetData(df, path, file)
             except Exception as e:
-                print(e)
+                e.args
 
 
 # hydrating the tweet IDs
@@ -176,13 +174,15 @@ def get_tweetData(df, path, file):
                                  'formatted_address': formatted_address,
                                  'country': country, 'province': province, 'city': city, 'time': time}])
         except Exception as e:
-            print(str(e))
+            # print(str(e))
+            e.args
     try:
         data.to_csv(path + "\\" + "tweetData_result.csv", encoding='utf-8', index=None, header=None, mode='a+')
-        print(file + '保存成功')
+        # print(file + '保存成功')
     except Exception as e:
-        print(e)
-        print(file + "保存失败")
+        # print(e)
+        # print(file + "保存失败")
+        e.args
 
 
 # get formatted_address,country,province according to lon and lat.
@@ -196,8 +196,9 @@ def get_location(longitude, latitude):
     try:
         response = requests.get(base, parameters)
     except Exception as e:
-        print(e)
-        print(response.url + "获取失败")
+        # print(e)
+        # print(response.url + "获取失败")
+        e.args
         return 'null', 'null', 'null', 'null'
 
     answer = response.json()
@@ -216,7 +217,6 @@ def get_date(filename):
     if eval(day) < 10:
         day = "0" + day
     date = "2020-" + month + "-" + day
-    print(date)
     return date
 
 
@@ -231,4 +231,3 @@ if __name__ == "__main__":
     flag = get_csv()
     # flag为一个数组，若成功得到数据，则返回[True,path],path为前面计算结果的路径,用于下一步计算集体理性
     # 若失败，则返回[False,'no']
-    print(flag)

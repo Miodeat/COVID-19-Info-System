@@ -24,11 +24,11 @@ def get_retweet_count(_id: str):
     try:
         status = api.get_status(int(_id))
     except tweepy.RateLimitError:
-        print("sleep...")
+        # print("sleep...")
         time.sleep(15 * 60)
         return None
     except tweepy.error.TweepError:
-        print("   being protected. Fail to fetch.")
+        # print("   being protected. Fail to fetch.")
         return "unknown"
     return str(status.retweet_count)
 
@@ -40,20 +40,19 @@ def start(path):
     list_retweet_count = []
     ids_len = len(ids)
     count = 0
-    print(len(df))
     df["retweet_count"] = ''
     # df.to_csv(r"all_result.csv", index=False)
     for tweet_id in ids:
-        print("start to get retweet count of " + tweet_id
-              + "  " + str(count) + "/" + str(ids_len))
+        # print("start to get retweet count of " + tweet_id
+        #       + "  " + str(count) + "/" + str(ids_len))
         retweet_count = get_retweet_count(tweet_id)
         if retweet_count is None:
             retweet_count = get_retweet_count(tweet_id)
         df.loc[count, 'retweet_count'] = retweet_count
         df.to_csv(path+'\\'+'tweetData_result.csv', encoding='utf-8')
-        print(retweet_count)
-        print(tweet_id)
-        print(df.loc[count, 'id'])
+        # print(retweet_count)
+        # print(tweet_id)
+        # print(df.loc[count, 'id'])
 
         list_retweet_count.append(retweet_count)
         count += 1
