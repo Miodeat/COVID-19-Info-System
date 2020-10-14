@@ -13,7 +13,6 @@ import os
 import sys
 
 
-
 def read_data(path,title):
     df = pd.read_csv(path)
     s = handleData(df,title)
@@ -51,12 +50,15 @@ def hebing_data(path,confirmed,death,recovered):
     uniformed_data = path+"\\uniformed.csv"
 
     if not os.path.exists(path):
-        os.mkdir(path)
+        os.makedirs(path)
     else:
-        os.remove(uniformed_data)
+        if os.path.exists(uniformed_data):
+            os.remove(uniformed_data)
     confirmed.to_csv(uniformed_data, index=False, header=None)
     df = confirmed.sort_values("time",ascending=False)[0:253]
     df.to_csv(path+"\\lastedDayDate.csv",index=False,header = None)
+    returnedFileName = path+"\\lastedDayDate.csv"
+    print(returnedFileName)
     # confirmed.to_csv(uniformed_data,index=False,header=None)
 
 
@@ -76,6 +78,7 @@ def handleCanada(origin_data_path):
     path = sys.argv[2]
     if not os.path.exists(path):
         os.makedirs(path)
+
     saveData(path, handled_death, "death")
     saveData(path, recovered, "recovered")
     saveData(path,handled_confirmed,"confirmed")
@@ -120,19 +123,22 @@ def begin_download_epidemicData():
     death_path = origin_data_path + "\\death.csv"
     recovered_path = origin_data_path + "\\recovered.csv"
     if not os.path.exists(origin_data_path):
-        os.mkdir(origin_data_path)
+        os.makedirs(origin_data_path)
     else:
-        os.remove(confirmed_path)
-        os.remove(death_path)
-        os.remove(recovered_path)
+        if os.path.exists(confirmed_path):
+            os.remove(confirmed_path)
+        if os.path.exists(death_path):
+            os.remove(death_path)
+        if os.path.exists(recovered_path):
+            os.remove(recovered_path)
     get_latest_epidemic_data("time_series_covid19_confirmed_global.csv", confirmed_path)
     get_latest_epidemic_data("time_series_covid19_deaths_global.csv", death_path)
     get_latest_epidemic_data("time_series_covid19_recovered_global.csv", recovered_path)
 
     return origin_data_path
 
-
 if __name__ == "__main__":
+
     # 下载最新的疫情数据
     origin_data_path = begin_download_epidemicData()
     # 处理加拿大数据，并返回处理后的疫情数据的相对根目录

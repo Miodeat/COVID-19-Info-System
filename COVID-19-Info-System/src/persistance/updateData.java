@@ -95,7 +95,7 @@ public class updateData {
                 data.put("1-1", temps[0]);
                 data.put("2-1", temps[1]);
                 data.put("3-7", Float.valueOf(temps[2]));
-                data.put("4-7", Float.valueOf(temps[2]));
+                data.put("4-7", Float.valueOf(temps[3]));
                 data.put("5-4", temps[4]);
 
                 data.put("6-0", Float.valueOf(temps[5]).intValue());

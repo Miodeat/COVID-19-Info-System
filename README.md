@@ -3,6 +3,13 @@
 
 
 
+## 2020.10.14 11:55
+
+### modified by Miodeat
+
+1. 修复python 脚本的一些bug
+2. 修复updateData 经纬度存取错误的bug
+
 ## 2020.10.14 9：37
 
 ### modified by Daisy
@@ -47,10 +54,6 @@
 2. 删除了无用的service和servlet
 3. 加入get_formatted_epidemicData.py（放在scriptPath），用于更新疫情数据，调用方式为py/python xxx.py argv[1] argv[2]，这两个参数已经写入json文件
 
-  <<<<<<< HEAD
-  =======
-
->>>>>>> a0d70a909d9e17bc02b3b0fdc03188821322e490
 ## 2020.10.12 20:19
 
 ### modified by Miodeat
@@ -58,10 +61,6 @@
 1. 修改了python脚本文件的存放位置
 2. 尝试兼容信息更新模块python脚本
 
-  <<<<<<< HEAD
-  =======
-
->>>>>>> a0d70a909d9e17bc02b3b0fdc03188821322e490
 ## 2020.10.09 16 :59
 
 ### modified by Miodeat
