@@ -32,9 +32,6 @@ nltk.download('stopwords')
 
 
 def beigin(path,newsPath):
-    print(path)
-    print(newsPath)
-    print("我看看哈")
     # reading the dataset
     col_label = ['text', 'longitude', 'latitude']
     dataset = pd.read_csv(newsPath, encoding='latin-1')
@@ -63,7 +60,7 @@ def beigin(path,newsPath):
     # token = token.lower
     # tokens_list.append(token)
     # dataset['text'] = tokens_list
-    print("is processing")
+    # print("is processing")
     dataset['body_text'] = [entry.lower() for entry in dataset['body_text']]
     dataset['body_text'] = [word_tokenize(entry) for entry in dataset['body_text']]
     my_dataset['text'] = [entry.lower() for entry in my_dataset['text']]
@@ -78,7 +75,7 @@ def beigin(path,newsPath):
     for index, entry in enumerate(dataset['body_text']):
         # Declaring Empty List to store the words that follow the rules for this step
         Final_words = []
-        print("is iterating...")
+        # print("is iterating...")
         # Initializing WordNetLemmatizer()
         word_Lemmatized = WordNetLemmatizer()
         # pos_tag function below will provide the 'tag' i.e if the word is Noun(N) or Verb(V) or something else.
@@ -93,7 +90,7 @@ def beigin(path,newsPath):
     for index, entry in enumerate(my_dataset['text']):
         # Declaring Empty List to store the words that follow the rules for this step
         Final_words = []
-        print("my data is iterating...")
+        # print("my data is iterating...")
         # Initializing WordNetLemmatizer()
         word_Lemmatized = WordNetLemmatizer()
         # pos_tag function below will provide the 'tag' i.e if the word is Noun(N) or Verb(V) or something else.
@@ -113,9 +110,9 @@ def beigin(path,newsPath):
     X_train = dataset['text_final']
     Y_train = dataset['reliability']
     X_test = my_dataset['text_final']
-    print(X_train)
-    print(Y_train)
-    print(X_test)
+    # print(X_train)
+    # print(Y_train)
+    # print(X_test)
 
     # In[ ]:
 
@@ -131,11 +128,11 @@ def beigin(path,newsPath):
     tfidf_vect.fit(dataset['text_final'])
     X_train_tfidf = tfidf_vect.transform(X_train)
     X_test_tfidf = tfidf_vect.transform(X_test)
-    print(tfidf_vect.vocabulary_)
+    # print(tfidf_vect.vocabulary_)
 
     # In[ ]:
 
-    print(X_train_tfidf)
+    # print(X_train_tfidf)
 
     # In[ ]:
 
@@ -143,7 +140,7 @@ def beigin(path,newsPath):
 
     # In[ ]:
 
-    print(dataset['text_final'])
+    # print(dataset['text_final'])
 
     # In[ ]:
 
@@ -155,7 +152,7 @@ def beigin(path,newsPath):
     nb_predictions = nb_classifier.predict(X_test_tfidf)
     nb_label = encoder.inverse_transform(nb_predictions)
     result_dataset['nb_label'] = nb_label
-    print(result_dataset.head())
+    # print(result_dataset.head())
     # displaying the accuracy score
     # print("Naive_Bayes Accuracy Score: {}".format(accuracy_score(nb_predictions, Y_test)*100))
 
@@ -169,7 +166,7 @@ def beigin(path,newsPath):
     svm_predictions = svm_classifier.predict(X_test_tfidf)
     svm_label = encoder.inverse_transform(svm_predictions)
     result_dataset['svm_label'] = svm_label
-    print(result_dataset.head())
+    # print(result_dataset.head())
     result_dataset.to_csv(path+'\\'+'all_result.csv', index=False)
     return path + '\\' + 'all_result.csv'
     # displaying the accuracy score

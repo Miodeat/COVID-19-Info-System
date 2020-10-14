@@ -3,6 +3,12 @@
 
 
 
+## 2020.10.14 9：37
+
+### modified by Daisy
+
+1. 删除py文件中的print
+
 ## 2020.10.13 21:35
 
 ### modified by Daisy
