@@ -18,6 +18,7 @@ import requests
 import test_Classifcation_Models
 import get_retweet
 import sys
+import get_rationality
 
 month_map = {
     'january': '01',
@@ -41,12 +42,6 @@ access_token = "1140054025791926272-sxzwfB5oCl8EBEPdhgewfuNP1oCemG"
 access_token_secret = "0tIMUBEeurg9Qmd6e076SLoSbMK7opLaWaorkhpqa4Tn1"
 t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
 
-# 这个是5个需要传进来的三个路径
-tweet_folder = sys.argv[1]
-last_week_folder = sys.argv[2]
-this_week_folder = sys.argv[3]
-news_path = sys.argv[4]
-result_path = sys.argv[5]
 # tweet_folder = "tweet_folder"
 # last_week_folder = "last_week_folder"
 # this_week_folder = "this_week_folder"
@@ -227,7 +222,15 @@ def inti_():
 
 
 if __name__ == "__main__":
+    # 这个是5个需要传进来的三个路径
+    tweet_folder = sys.argv[1]
+    last_week_folder = sys.argv[2]
+    this_week_folder = sys.argv[3]
+    news_path = sys.argv[4]
+    result_path = sys.argv[5]
     makedir()
     flag = get_csv()
     # flag为一个数组，若成功得到数据，则返回[True,path],path为前面计算结果的路径,用于下一步计算集体理性
     # 若失败，则返回[False,'no']
+    if flag[0]:
+        get_rationality.get_rationality(flag[1],argv[6])
