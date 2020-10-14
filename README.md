@@ -9,6 +9,11 @@
 
 1. 删除py文件中的print
 
+## 2020.10.14 08:59
+
+### modified by Miodeat
+
+1. 为更新集体理性计算提供新线程
 ## 2020.10.13 21:35
 
 ### modified by Daisy
