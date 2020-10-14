@@ -8,7 +8,7 @@ public class UpdateCRDataThread extends ExecScript implements Runnable {
     private Thread t;
 
     public UpdateCRDataThread() {
-        super("E:\\地理信息系统开发实习\\COVID19InfoSystem\\COVID-19-Info-System\\src\\data\\updateCRDataScriptPaths.json",
+        super("D:\\COVIDInfoSystem\\COVID-19-Info-System\\src\\data\\updateCRDataScriptPaths.json",
                 "py");
     }
 
@@ -29,10 +29,17 @@ public class UpdateCRDataThread extends ExecScript implements Runnable {
                 }
             }
             try {
-                TimeUnit.DAYS.sleep(7);
+                TimeUnit.DAYS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void start() {
+        if (t == null) {
+            t = new Thread(this);
+            t.start();
         }
     }
 }
