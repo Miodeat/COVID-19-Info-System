@@ -42,10 +42,10 @@ public class getEpidemicTimeSeriesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request,response);
     }
 
-    JSONObject getTimeSeries(JSONObject data){
+   private JSONObject getTimeSeries(JSONObject data){
 
         JSONObject res = new JSONObject();
         HashMap<String,String> timeKey = new HashMap<>();

@@ -1,6 +1,21 @@
 # COVID-19-Info-System
 某高校地理信息系统开发实习项目
 
+
+
+## 2020.10.14 08:59
+
+### modified by Miodeat
+
+1. 为更新集体理性计算提供新线程
+
+## 2020.10.13 21:35
+
+### modified by Daisy
+
+1. 完成集体理性数据全字段的返回
+2. 完成tweet数据处理
+
 ## 2020.10.13 15：02
 
 ### modified by Daisy
