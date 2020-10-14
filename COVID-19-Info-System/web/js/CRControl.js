@@ -163,7 +163,7 @@ CRControl.prototype._initMenu = function () {
 CRControl.prototype._initMap = function (div, data) {
     let me = this;
     // console.log(data);
-    let crmapcontrol = new CRmapControl(div, data);
+    let crmapcontrol = new CRmapControl(div,800,540, data);
 
     // let crmapTabControl = new MapsTabControl();
     // crmapTabControl.createTabs(me.options.crmapObj.mapTabDiv,me.options.crmapObj.tabs);
@@ -175,38 +175,16 @@ CRControl.prototype._initStat = function (div, data) {
     let echartviewer = new EChartViewer();
     let crtimedataprocessor = new CRTimeDataProcessor(data);
 
+    let coname = crtimedataprocessor.getCountryName(data);
+    echartviewer.drawStatistic(div.barDiv, 'timebar', 600, 350,coname ,data);
+
     let X = crtimedataprocessor.getTime(data);
-
-    // let da= crtimedataprocessor.getGoodData(data);
-    echartviewer.drawStatistic(div.barDiv, 'timebar', 600, 300,X ,data );
-
-
     echartviewer.drawStatistic(div.lineDiv, 'multiline', 600, 200, X , data);
 
 
 }
 
-// CRControl.prototype._initSelector= function(div, time , selectTime){
-//     let me = this;
-//     let timeSelect = $("#"+div);
-//     time.forEach((item)=>{
-//        let option = $("<option>").appendTo(timeSelect)
-//            .attr({
-//                "value":item
-//            })
-//            .text(item);
-//        if(item == selectTime){
-//            option.attr({
-//                "selected":true
-//            });
-//        }
-//     });
-//
-//     timeSelect.on("change", ev=>{
-//        let time = $("#"+me.options).val();
-//        let opsArr = [ me.]
-//     });
-// };
+
 
 CRControl.prototype._initText = function () {
     let me = this;

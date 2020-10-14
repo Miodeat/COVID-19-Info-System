@@ -1,5 +1,9 @@
-CRmapControl = function (div, data) {
+CRmapControl = function (div, width, height, data) {
     let me = this;
+    $("#" + div).css({
+        "width": width,
+        "height": height
+    });
     me.drawMap(div, data);
 }
 
@@ -14,12 +18,17 @@ CRmapControl.prototype.drawMap = function (div, data) {
                 axisType: 'category',
                 autoPlay: true,
                 playInterval: 3000,
-                y: 630,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                y: 1000,
+                //@TODO:修改
+                data: timeDataProcessor.getTime(data)
+
             },
             title: {
                 text: 'Word Country Rationality',
-                subtext: "世界国家集体理性"
+                subtext: "世界国家集体理性",
+                textStyle: {
+                    fontSize: 30
+                }
                 // left: 'center'
             },
             tooltip: {
@@ -76,6 +85,7 @@ CRmapControl.prototype.drawMap = function (div, data) {
     };
 
     myoption["options"] = option;
+
 
     let dom = document.getElementById(div);
     let myChart = echarts.init(dom);
